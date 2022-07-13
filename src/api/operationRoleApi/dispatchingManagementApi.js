@@ -2,12 +2,21 @@ import request from '@/utils/request'
 import axios from 'axios'
 
 // 获取用户实名认证信息
-export function getUserCertification(id) {
-  axios.defaults.baseURL = '/api'
+// export function getUserCertification(id) {
+//   axios.defaults.baseURL = '/api'
+//   return request({
+//     xf_url: '/api',
+//     url: '/QueryData?SqlCmdName=WEB\\GetUserCertification_1_0_1&DBC=w_m&user_id=' + id,
+//     method: 'get',
+//   })
+// }
+
+// 获取用户实名认证信息
+export function getUserCertification(data) {
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=WEB\\GetUserCertification_1_0_1&DBC=w_m&user_id=' + id,
-    method: 'get',
+    url: '/QueryData?SqlCmdName=aprc\\web\\user\\appcertification\\getByUid_1_0_1&DBC=w_a',
+    method: 'post',
+	data: data
   })
 }
 
@@ -22,12 +31,20 @@ export function getUserInfoOne(id) {
 }
 
 // 删除实名认证信息
-export function deleteCertification(id) {
-  axios.defaults.baseURL = '/api'
+// export function deleteCertification(id) {
+//   axios.defaults.baseURL = '/api'
+//   return request({
+//     xf_url: '/api',
+//     url: '/ExSql?SqlCmdName=WEB\\DeleteCertification_1_0_1&DBC=w_m&certification_id=' + id,
+//     method: 'get',
+//   })
+// }
+
+export function deleteCertification(data) {
   return request({
-    xf_url: '/api',
-    url: '/ExSql?SqlCmdName=WEB\\DeleteCertification_1_0_1&DBC=w_m&certification_id=' + id,
-    method: 'get',
+    url: '/ExSql?SqlCmdName=aprc\\web\\user\\appcertification\\delByCertiGuid_1_0_1&DBC=w_a',
+    method: 'post',
+	data: data
   })
 }
 
@@ -316,10 +333,8 @@ export function getOrderSupplyMonthList(data) {
 // 2022-01-08
 // web-查询用户列表（未封号用户/已封号用户）
 export function permissionGetList(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\user\\permission\\getList&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\user\\permission\\getList_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -327,10 +342,8 @@ export function permissionGetList(data) {
 
 // web-查看用户操作权限（根据操作权限类型）
 export function permissionGetOneByType123(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\user\\permission\\getOneByType123&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\user\\permission\\getOneByType123_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -338,10 +351,8 @@ export function permissionGetOneByType123(data) {
 
 // web-查看用户操作权限（品类采购操作权限）
 export function permissionGetOneByType4(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\user\\permission\\getOneByType4&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\user\\permission\\getOneByType4_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -349,10 +360,8 @@ export function permissionGetOneByType4(data) {
 
 // web-查看用户操作权限（品类供应操作权限）
 export function permissionGetOneByType5(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\user\\permission\\getOneByType5&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\user\\permission\\getOneByType5_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -360,10 +369,8 @@ export function permissionGetOneByType5(data) {
 
 // web-更新用户账号操作权限
 export function permissionUpdateByType1(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/ExSql?SqlCmdName=web\\cat\\user\\permission\\updateByType1&DBC=w_m',
+    url: '/ExSql?SqlCmdName=aprc\\web\\user\\permission\\updateByType1_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -371,10 +378,8 @@ export function permissionUpdateByType1(data) {
 
 // web-更新用户采购操作权限
 export function permissionUpdateByType2(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/ExSql?SqlCmdName=web\\cat\\user\\permission\\updateByType2&DBC=w_m',
+    url: '/ExSql?SqlCmdName=aprc\\web\\user\\permission\\updateByType2_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -382,10 +387,8 @@ export function permissionUpdateByType2(data) {
 
 // web-更新用户供应操作权限
 export function permissionUpdateByType3(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/ExSql?SqlCmdName=web\\cat\\user\\permission\\updateByType3&DBC=w_m',
+    url: '/ExSql?SqlCmdName=aprc\\web\\user\\permission\\updateByType3_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -393,10 +396,8 @@ export function permissionUpdateByType3(data) {
 
 // web-添加用户限制的品类采购操作权限
 export function permissionUpdateByType4(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/ExSql?SqlCmdName=web\\cat\\user\\permission\\insertByType4&DBC=w_m',
+    url: '/ExSql?SqlCmdName=aprc\\web\\user\\permission\\insertByType4_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -404,10 +405,8 @@ export function permissionUpdateByType4(data) {
 
 // web-添加用户品类供应操作权限
 export function permissionUpdateByType5(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/ExSql?SqlCmdName=web\\cat\\user\\permission\\insertByType5&DBC=w_m',
+    url: '/ExSql?SqlCmdName=aprc\\web\\user\\permission\\insertByType5_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -415,10 +414,8 @@ export function permissionUpdateByType5(data) {
 
 // web-取消品类限制
 export function permissionDeleteDetail(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/ExSql?SqlCmdName=web\\cat\\user\\permission\\deleteDetail&DBC=w_m',
+    url: '/ExSql?SqlCmdName=aprc\\web\\user\\permission\\deleteDetail_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -426,10 +423,8 @@ export function permissionDeleteDetail(data) {
 
 // web-查询未被限制采购/供应的品类列表
 export function getUnLmitCatList(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\user\\permission\\getUnLmitCatList&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\user\\permission\\getUnLmitCatList_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })

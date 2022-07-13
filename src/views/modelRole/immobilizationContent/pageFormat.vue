@@ -31,9 +31,7 @@
     data() {
       return {
         activeName: 'first',
-        list1: [{
-            name: '沟通模式'
-          },
+        list1: [
           {
             name: '交易模式'
           }
@@ -44,9 +42,6 @@
           {
             name: '非型号模式'
           },
-          {
-            name: '简历模式'
-          }
         ],
         list3: [{
             name: '型号模式'
@@ -55,9 +50,7 @@
             name: '按单模式'
           }
         ],
-        list4: [{
-            name: '沟通模式'
-          },
+        list4: [
           {
             name: '交易模式'
           }

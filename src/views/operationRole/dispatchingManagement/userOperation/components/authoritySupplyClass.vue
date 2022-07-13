@@ -8,8 +8,6 @@
 				</el-table-column>
 				<el-table-column prop="phonenumber" label="联系电话" align="center">
 				</el-table-column>
-				<el-table-column prop="roleType" label="角色类型" align="center">
-				</el-table-column>
 			</el-table>
 		</el-row>
 		<el-row>
@@ -270,6 +268,7 @@
 			async permissionGetOneByType5() {
 				await permissionGetOneByType5({
 					userId: this.astrictRow.userId,
+					curUserId: this.$store.state.user.adminId,
 				}).then(res => {
 					if (res.Tag.length) {
 						let data = res.Tag[0].Table
@@ -286,7 +285,8 @@
 					let data = {
 						userId: this.astrictRow.userId,
 						remark: this.astrictEventText,
-						categoryGuid: this.addClassList[i].categoryGuid
+						categoryGuid: this.addClassList[i].categoryGuid,
+						curUserId: this.$store.state.user.adminId,
 					}
 					arr.push(data)
 				}
@@ -309,7 +309,8 @@
 			// 取消限制单独写一个
 			async permissionUpdateByType5Cancel(id) {
 				let data = {
-					permissionDetailGuid: id
+					permissionDetailGuid: id,
+					curUserId: this.$store.state.user.adminId,
 				}
 				await permissionDeleteDetail(data).then(res => {
 					console.log(res);
@@ -334,10 +335,12 @@
 			// web-查询未管制的品类列表
 			async getUnLmitCatList() {
 				await getUnLmitCatList({
+					userId: this.astrictRow.userId,
 					categoryName: this.searchClassVal,
 					type: '5',
 					size: '20',
-					page: this.page
+					page: this.page,
+					curUserId: this.$store.state.user.adminId,
 				}).then(res => {
 					if (res.Tag.length) {
 						let data = res.Tag[0].Table

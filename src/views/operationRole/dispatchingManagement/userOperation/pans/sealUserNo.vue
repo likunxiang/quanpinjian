@@ -8,8 +8,8 @@
 			</el-table-column>
 			<el-table-column prop="phonenumber" label="联系电话" align="center">
 			</el-table-column>
-			<el-table-column prop="roleType" label="角色类型" align="center">
-			</el-table-column>
+			<!-- <el-table-column prop="roleType" label="角色类型" align="center">
+			</el-table-column> -->
 			<el-table-column label="操作" align="center">
 				<template slot-scope="scope">
 					<el-row>
@@ -36,8 +36,10 @@
 
 		<pages @changePage="changePage" :page="page" :total="pageTotal"></pages>
 		<autonymMessage v-if="isAutonym" @close="closeAutonym" :row="openRow"></autonymMessage>
-		<authorityManagement v-if="isAuthority" @close="closeAuthority" :row="openRow" @refresh="permissionGetList"></authorityManagement>
-		<authorityManagementSupply v-if="isAuthoritySupply" @close="closeAuthoritySupply" :row="openRow"></authorityManagementSupply>
+		<authorityManagement v-if="isAuthority" @close="closeAuthority" :row="openRow" @refresh="permissionGetList">
+		</authorityManagement>
+		<authorityManagementSupply v-if="isAuthoritySupply" @close="closeAuthoritySupply" :row="openRow">
+		</authorityManagementSupply>
 		<authorityManagementPurchase v-if="isAuthorityPurchase" @close="closeAuthorityPurchase" :row="openRow">
 		</authorityManagementPurchase>
 		<authorityPurchaseClass v-if="isAuthorityClass" :astrictRow="openRow" @close="closeAuthorityClass">
@@ -63,8 +65,8 @@
 		name: "index",
 		components: {
 			autonymMessage,
-			authorityManagement,  // 1
-			authorityManagementSupply,  //2
+			authorityManagement, // 1
+			authorityManagementSupply, //2
 			authorityManagementPurchase, // 3
 			authorityPurchaseClass,
 			authoritySupplyClass,
@@ -149,29 +151,31 @@
 					phonenumber: this.searchVal,
 					size: '20',
 					page: this.page,
+					curUserId: this.$store.state.user.adminId,
 				}).then(res => {
 					this.loading = false
 					if (res.Tag.length) {
 						this.tableData = res.Tag[0].Table
 						// 从字典获取角色类型
-						this.getDicts("user_tag").then(response => {
-						  var statusOptions = response.Tag;
-						  console.log('statusOptions',statusOptions);
-						  for (var j in this.tableData) {
-						    for (var i in statusOptions) {
-						      if (this.tableData[j].userTag == statusOptions[i].dictValue) {
-                    console.log(this.tableData[j].userTag)
-						        this.tableData[j].roleType = statusOptions[i].dictLabel
-						      }
-						    }
-						  }
-              this.tableData = this.clone(this.tableData)
+						// this.getDicts("user_tag").then(response => {
+						// 	var statusOptions = response.Tag;
+						// 	console.log('statusOptions', statusOptions);
+						// 	for (var j in this.tableData) {
+						// 		for (var i in statusOptions) {
+						// 			if (this.tableData[j].userTag == statusOptions[i].dictValue) {
+						// 				console.log(this.tableData[j].userTag)
+						// 				this.tableData[j].roleType = statusOptions[i].dictLabel
+						// 			}
+						// 		}
+						// 	}
+						// 	this.tableData = this.clone(this.tableData)
 
-						});
+						// });
 					} else {
 						this.tableData = []
 					}
-					this.pageTotal = this.tableData.length > 0 ? (this.page - 1) * 20 + 21 : (this.page - 1) * 20 + 1
+					this.pageTotal = this.tableData.length > 0 ? (this.page - 1) * 20 + 21 : (this.page - 1) *
+						20 + 1
 					this.searchResult = this.tableData.length
 				})
 			}
@@ -185,7 +189,7 @@
 <style lang="scss" scoped>
 	.com-contain {
 		min-height: 82vh;
-	  padding-bottom: 68px;
+		padding-bottom: 68px;
 	}
 
 	.pageBox {

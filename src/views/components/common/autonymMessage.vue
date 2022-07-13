@@ -125,7 +125,10 @@
       // 获取实名认证信息
       async getUserCertification() {
         //this.row.user_id
-        await getUserCertification(this.row.userId).then((res) =>{
+        await getUserCertification({
+			userId: this.row.userId || this.userId,
+			curUserId: this.$store.state.user.adminId,
+		}).then((res) =>{
           if (res.Tag.length) {
             // this.userInfo = res.Tag[0].Table[0]
             let data = res.Tag[0].Table[0]

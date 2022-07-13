@@ -4,7 +4,7 @@ import { parseStrEmpty } from "@/utils/ruoyi";
 // 查询用户列表
 export function listUser(query) {
   return request({
-    url: '/system/user/list',
+    url: '/ProxyService/aprc_web_system_userlist',
     method: 'get',
     params: query
   })
@@ -21,7 +21,7 @@ export function getUser(userId) {
 // 新增用户
 export function addUser(data) {
   return request({
-    url: '/system/user',
+    url: '/ProxyService/aprc_web_system_user_insert',
     method: 'post',
     data: data
   })
@@ -30,8 +30,8 @@ export function addUser(data) {
 // 修改用户
 export function updateUser(data) {
   return request({
-    url: '/system/user',
-    method: 'put',
+    url: '/ProxyService/aprc_web_system_user_update',
+    method: 'post',
     data: data
   })
 }
@@ -39,8 +39,8 @@ export function updateUser(data) {
 // 删除用户
 export function delUser(userId) {
   return request({
-    url: '/system/user/' + userId,
-    method: 'delete'
+    url: '/ProxyService/aprc_web_system_user_delById?userIds=' + userId,
+    method: 'get'
   })
 }
 
@@ -112,7 +112,7 @@ export function uploadAvatar(data) {
 // 查询授权角色
 export function getAuthRole(userId) {
   return request({
-    url: '/system/user/authRole/' + userId,
+    url: '/ProxyService/aprc_web_system_user_getAuthRole?userId=' + userId,
     method: 'get'
   })
 }
@@ -120,8 +120,8 @@ export function getAuthRole(userId) {
 // 保存授权角色
 export function updateAuthRole(data) {
   return request({
-    url: '/system/user/authRole',
-    method: 'put',
+    url: '/ProxyService/aprc_web_system_user_authRole',
+    method: 'post',
     params: data
   })
 }

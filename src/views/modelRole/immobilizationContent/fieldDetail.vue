@@ -19,7 +19,7 @@
 <script>
   import pages from '@/views/components/common/pages.vue'
   import {
-    getFixedData
+		getFixedDataListByBTM
   } from '@/api/modelRoleApi/immobilizationContent.js'
   export default {
     name: "index",
@@ -52,12 +52,12 @@
       },
       async getFixedData() {
 		this.loading = true
-        await getFixedData({
+        await getFixedDataListByBTM({
           type: 3,
           name: this.searchVal,
           page: this.page,
           size: '20',
-          bizType: ''
+          bizType: "'1','2','3','4'"
         }).then(res => {
 		  this.loading = false
           console.log(res);

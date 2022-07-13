@@ -1,12 +1,19 @@
 import request from '@/utils/request'
 import axios from 'axios'
 
-// 查询供需主体顶级列表等
+// web-查询固化内容信息管理
 export function getFixedData(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\model\\getFixedData&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\model\\fixedData\\getFixedDataList_1_0_1&DBC=w_a',
+    method: 'post',
+    data: data
+  })
+}
+
+// web-查询固化内容库信息管理
+export function getFixedDataListByBTM(data) {
+  return request({
+    url: '/QueryData?SqlCmdName=aprc\\web\\model\\fixedData\\getFixedDataListByBTM_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -14,10 +21,8 @@ export function getFixedData(data) {
 
 // web-查询固化内容信息管理
 export function getFixedMappingData(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\model\\getFixedMappingData&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\model\\fixedData\\getFixedMappingData_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })

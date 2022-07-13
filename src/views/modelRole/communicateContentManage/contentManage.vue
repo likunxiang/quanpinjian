@@ -11,12 +11,15 @@
 				</template>
 			</el-table-column>
 		</el-table>
-		<fieldAllocation v-if="isField" @close="closeFieldAllocation" :row="openRow"></fieldAllocation>
+		<fieldAllocation v-if="isField" @close="closeFieldAllocation" :fieldObj="openRow"></fieldAllocation>
 	</div>
 </template>
 
 <script>
 	import fieldAllocation from '@/views/modelRole/communicateContentManage/components/fieldAllocation.vue'
+	import {
+		getFixedData
+	} from '@/api/modelRoleApi/immobilizationContent.js'
 	export default {
 		name: "index",
 		components: {
@@ -24,13 +27,7 @@
 		},
 		data() {
 			return {
-				tableData: [{
-					name: '岗位类型',
-					id: '1',
-				}, {
-					name: '岗位薪酬',
-					id: '2',
-				}, ],
+				tableData: [],
 				isField: false,
 				openRow: {}
 			};
@@ -42,10 +39,31 @@
 			},
 			closeFieldAllocation () {
 				this.isField = false
+			},
+			async getFixedData() {
+				this.loading = true
+				await getFixedData({
+					type: 3,
+					name: '',
+					bizType: '5',
+					page: '1',
+					size: '20'
+				}).then(res => {
+					this.loading = false
+					console.log(res);
+					if (res.Tag.length) {
+						let data = res.Tag[0].Table
+						this.tableData = data
+						this.pageTotal = (this.page - 1) * 20 + 21
+					} else {
+						this.tableData = []
+						this.pageTotal = (this.page - 1) * 20 + 1
+					}
+				})
 			}
 		},
 		created() {
-
+			this.getFixedData()
 		}
 	}
 </script>

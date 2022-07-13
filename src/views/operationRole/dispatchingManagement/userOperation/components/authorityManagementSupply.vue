@@ -8,8 +8,6 @@
 			  </el-table-column>
 			  <el-table-column prop="phonenumber" label="联系电话" align="center">
 			  </el-table-column>
-			  <el-table-column prop="roleType" label="角色类型" align="center">
-			  </el-table-column>
 			</el-table>
 		</el-row>
 		<el-row class="flex flex-center" style="padding: 10px 20px 20px 20px;">
@@ -85,6 +83,7 @@
 				await permissionGetOneByType123({
 					userId: this.row.userId,
 					type: 3,
+					curUserId: this.$store.state.user.adminId,
 				}).then(res => {
 					console.log(res);
 					if(res.Tag.length) {
@@ -96,7 +95,8 @@
 			async permissionUpdateByType3() {
 				await permissionUpdateByType3({
 					userId: this.row.userId,
-					status: this.isUse == true?0:1
+					status: this.isUse == true?0:1,
+					curUserId: this.$store.state.user.adminId,
 				}).then(res => {
 					this.refresh()
 					if (res.Tag[0]>0) {

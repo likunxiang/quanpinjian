@@ -9,8 +9,8 @@
 			</el-table-column>
 			<el-table-column prop="phonenumber" label="联系电话" align="center">
 			</el-table-column>
-			<el-table-column prop="roleType" label="角色类型" align="center">
-			</el-table-column>
+			<!-- <el-table-column prop="roleType" label="角色类型" align="center">
+			</el-table-column> -->
 			<el-table-column label="操作" align="center">
 				<template slot-scope="scope">
 					<el-row>
@@ -76,25 +76,26 @@
 					phonenumber: this.searchVal,
 					size: '20',
 					page: this.page,
+					curUserId: this.$store.state.user.adminId,
 				}).then(res => {
 					this.loading = false
 					if (res.Tag.length) {
 						this.tableData = res.Tag[0].Table
 						// 从字典获取角色类型
-						this.getDicts("user_tag").then(response => {
-						  var statusOptions = response.Tag;
-						  console.log('statusOptions',statusOptions);
-						  for (var j in this.tableData) {
-						    for (var i in statusOptions) {
-						      if (this.tableData[j].userTag == statusOptions[i].dictValue) {
-						        console.log(this.tableData[j].userTag)
-						        this.tableData[j].roleType = statusOptions[i].dictLabel
-						      }
-						    }
-						  }
-						  this.tableData = this.clone(this.tableData)
+						// this.getDicts("user_tag").then(response => {
+						//   var statusOptions = response.Tag;
+						//   console.log('statusOptions',statusOptions);
+						//   for (var j in this.tableData) {
+						//     for (var i in statusOptions) {
+						//       if (this.tableData[j].userTag == statusOptions[i].dictValue) {
+						//         console.log(this.tableData[j].userTag)
+						//         this.tableData[j].roleType = statusOptions[i].dictLabel
+						//       }
+						//     }
+						//   }
+						//   this.tableData = this.clone(this.tableData)
 						
-						});
+						// });
 					} else {
 						this.tableData = []
 					}
