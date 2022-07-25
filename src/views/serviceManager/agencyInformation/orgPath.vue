@@ -7,7 +7,7 @@
       <el-button type="primary" @click="toBatchDel">批量删除字节内容</el-button>
     </div>
 
-    <el-tree v-loading="loading" :data="tableData" :props="defaultProps" @node-click="getFather" node-key="id"
+    <el-tree style="padding-bottom: 160px;" v-loading="loading" :data="tableData" :props="defaultProps" @node-click="getFather" node-key="id"
       @node-expand="getSon" @node-drag-start="handleDragStart" @node-drag-enter="handleDragEnter"
       @node-drag-leave="handleDragLeave" @node-drag-over="handleDragOver" @node-drag-end="handleDragEnd"
       @node-drop="handleDrop" @node-contextmenu="rightClick" :allow-drop="allowDrop">

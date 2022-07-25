@@ -18,13 +18,13 @@
         </el-table-column>
         <el-table-column prop="plateFieldAlias" label="字段别名" align="center">
         </el-table-column>
-        <el-table-column prop="plateTypeName" label="板块类型关联" align="center">
+        <el-table-column prop="plateTypeName" label="板块名称关联" align="center">
         </el-table-column>
         <el-table-column label="操作" align="center" width="440">
           <template slot-scope="scope">
             <el-button @click="editFieldName(scope.row,scope.$index)" type="text" size="small">编辑字段别名</el-button>
             <el-button @click="delField(scope.row,scope.$index)" type="text" size="small">删除字段名称</el-button>
-            <el-button @click="relevanceClass(scope.row,scope.$index)" type="text" size="small">关联板块类型</el-button>
+            <el-button @click="relevanceClass(scope.row,scope.$index)" type="text" size="small">关联板块名称</el-button>
             <el-button @click="disField(scope.row,scope.$index)" type="text" size="small">字段内容配置</el-button>
           </template>
         </el-table-column>

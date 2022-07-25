@@ -72,6 +72,7 @@ export default  {
     justify-content: center;
     background-color: #F5F7FA;
   }
+	
   // .el-input {
   //   width: 260px !important;
   // }

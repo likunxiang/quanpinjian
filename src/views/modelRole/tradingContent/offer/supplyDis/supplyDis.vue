@@ -10,9 +10,9 @@
           <el-row>
             <el-button @click="plateNameDis(scope.row)" type="text" size="small">板块名称配置</el-button>
           </el-row>
-          <el-row>
+          <!-- <el-row>
             <el-button @click="plateClassDis(scope.row)" type="text" size="small">板块类型配置</el-button>
-          </el-row>
+          </el-row> -->
           <el-row>
             <el-button @click="fieldDis(scope.row)" type="text" size="small">字段名称配置</el-button>
           </el-row>

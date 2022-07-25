@@ -13,7 +13,7 @@
 
     <div class="">
       <template>
-        <el-tree v-loading="loading" :data="tableData" :props="defaultProps" node-key="id" @node-expand="getSon"
+        <el-tree style="padding-bottom: 160px;" v-loading="loading" :data="tableData" :props="defaultProps" node-key="id" @node-expand="getSon"
           @node-drag-start="handleDragStart" @node-drag-enter="handleDragEnter" @node-drag-leave="handleDragLeave"
           @node-drag-over="handleDragOver" @node-drag-end="handleDragEnd" @node-drop="handleDrop" draggable
           @node-contextmenu="rightClick" :allow-drop="allowDrop">

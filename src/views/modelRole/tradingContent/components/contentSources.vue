@@ -5,7 +5,7 @@
         <el-descriptions-item label="品类名称" v-if="!isUniversal">{{categoryName}}</el-descriptions-item>
         <el-descriptions-item label="品类类型" v-if="isUniversal">{{categoryName}}</el-descriptions-item>
         <el-descriptions-item label="板块名称">{{fieldObj.plateName}}</el-descriptions-item>
-        <el-descriptions-item label="板块类型">{{fieldObj.plateTypeName}}</el-descriptions-item>
+        <!-- <el-descriptions-item label="板块类型">{{fieldObj.plateTypeName}}</el-descriptions-item> -->
         <el-descriptions-item label="字段名称">{{fieldObj.plateFieldName}}</el-descriptions-item>
         <el-descriptions-item label="字段名称来源">{{fieldObj.plateFieldSource=="1"?'固化':'自建'}}</el-descriptions-item>
       </el-descriptions>

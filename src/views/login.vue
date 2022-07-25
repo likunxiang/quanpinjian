@@ -80,7 +80,7 @@
     </el-form>
     <!--  底部  -->
     <div class="el-login-footer">
-      <span>Copyright © 2018-2022 ruoyi.vip All Rights Reserved.</span>
+      <a href="https://beian.miit.gov.cn/" target="_blank">闽ICP备20005372号-2</a>
     </div>
   </div>
 </template>

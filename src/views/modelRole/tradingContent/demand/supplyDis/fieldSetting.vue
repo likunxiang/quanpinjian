@@ -9,10 +9,10 @@
         <div class="bold mr20">板块名称</div>
         <div class="">{{tableData[0].plateName}}</div>
       </el-row>
-      <el-row class="mt10 flex">
+      <!-- <el-row class="mt10 flex">
         <div class="bold mr20">板块类型</div>
         <div class="">{{tableData[0].plateTypeName}}</div>
-      </el-row>
+      </el-row> -->
     </el-row>
     <el-row class="mt20">
       <el-table :data="tableData" border style="width: 100%">

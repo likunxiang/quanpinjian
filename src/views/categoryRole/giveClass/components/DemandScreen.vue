@@ -64,6 +64,9 @@
 			},
 			
 			async getTopParentList(id,index) {
+				if(id.length == 0) {
+					return false
+				}
 				await getTopParentList({
 					sdPathGuid: id,
 					curUserId: this.$store.state.user.adminId,

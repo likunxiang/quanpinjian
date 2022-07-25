@@ -9,7 +9,7 @@
 
     <div class="">
       <template>
-        <el-tree :data="tableData" :lazy="true" :props="defaultProps" :load="againOne" node-key="id" default-expand-all
+        <el-tree style="padding-bottom: 160px;" :data="tableData" :lazy="true" :props="defaultProps" :load="againOne" node-key="id" default-expand-all
           @node-drag-start="handleDragStart" @node-drag-enter="handleDragEnter" @node-drag-leave="handleDragLeave" @node-click="closeMenu"
           @node-drag-over="handleDragOver" @node-drag-end="handleDragEnd" @node-drop="handleDrop" draggable
           @node-contextmenu="rightClick" :allow-drop="allowDrop">

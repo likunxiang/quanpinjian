@@ -1,7 +1,7 @@
 <template>
   <div class="app-container home1">
     <div class="home1Text">欢迎使用全品荐管理系统</div>
-    <div class="version">v1.0.4</div>
+    <div class="version">v2.2.1{{huanjing}}</div>
   </div>
 </template>
 
@@ -12,6 +12,7 @@
       return {
         // 版本号
         version: "3.1.0",
+		huanjing: process.env.VUE_APP_BASE_API=='http://service.xiaofeizzj.com:8011'?'正式':'测试'
       };
     },
     methods: {

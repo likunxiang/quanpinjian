@@ -3,10 +3,8 @@ import axios from 'axios'
 
 // 获取交易规则列表
 export function getBizRule(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\order\\getBizRule&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\base\\getBizRule&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -14,10 +12,8 @@ export function getBizRule(data) {
 
 // 获取交易规则详情
 export function getBizRuleById(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\order\\getBizRuleById&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\base\\getBizRuleById&DBC=w_a',
     method: 'post',
     data: data
   })
