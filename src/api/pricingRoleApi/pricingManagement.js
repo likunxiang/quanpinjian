@@ -3,10 +3,8 @@ import axios from 'axios'
 
 // web-查询交易服务定价列表
 export function getList(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\servicefee\\getList&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\servicefee\getCatgList_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -14,10 +12,8 @@ export function getList(data) {
 
 // web-查询服务费设置详情-按品类
 export function getDetailOfType1(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\servicefee\\getDetailOfType1&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\servicefee\\getDetail_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -25,10 +21,8 @@ export function getDetailOfType1(data) {
 
 // web-设置定价-按品类
 export function insertRatioOfType1(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/ExSql?SqlCmdName=web\\cat\\servicefee\\insertRatioOfType1&DBC=w_m',
+    url: '/ExSql?SqlCmdName=aprc\\web\\servicefee\\insertCatg_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -172,10 +166,8 @@ export function addSupplier(data) {
  */
 // web-查询某一品类收取服务定价列表-按品类
 export function getAcctoCatLogList(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\servicefee\\getAcctoCatLogList_1_0_1&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\servicefee\\getCatgLogList_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -183,10 +175,8 @@ export function getAcctoCatLogList(data) {
 
 // web-查询某一品类收取服务定价列表-按型号类型
 export function getAcctoMtLogList(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\servicefee\\mt\\getAcctoMtLogList_1_0_1&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\servicefee\\mt\\getByMtLogList_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -194,10 +184,8 @@ export function getAcctoMtLogList(data) {
 
 // web-新增服务定价-按型号类型
 export function insertAcctoMt(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/ExSql?SqlCmdName=web\\cat\\servicefee\\mt\\insertAcctoMt_1_0_1&DBC=w_m',
+    url: '/ExSql?SqlCmdName=aprc\\web\\servicefee\\mt\\insertMt_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -205,10 +193,8 @@ export function insertAcctoMt(data) {
 
 // web-查询某一品类供方数量统计-按型号名称
 export function getSupplierCount(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\servicefee\\mn\\getSupplierCount_1_0_1&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\servicefee\\mn\\getSupplierCount_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -216,10 +202,8 @@ export function getSupplierCount(data) {
 
 // web-查询某一品类服务定价个人供方列表-按型号名称
 export function getAcctoMnPersSupplierList(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\servicefee\\mn\\getAcctoMnPersSupplierList_1_0_1&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\servicefee\\mn\\getMnPersSupplierList_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -230,7 +214,7 @@ export function getSupplierModelList(data) {
   axios.defaults.baseURL = '/api'
   return request({
     xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\servicefee\\mn\\getSupplierModelList_1_0_1&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\servicefee\\mn\\getSupplierModelList_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -238,10 +222,8 @@ export function getSupplierModelList(data) {
 
 // web-查询某一品类服务定价供方型号列表-按型号名称
 export function getAcctoMnPersModelList(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\servicefee\\mn\\getAcctoMnPersModelList_1_0_1&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\servicefee\\mn\\getMnPersModelList_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -249,10 +231,8 @@ export function getAcctoMnPersModelList(data) {
 
 // web-查询某一型号最大终止时间-按型号名称
 export function getAcctoMnMaxEndDate(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\servicefee\\mn\\getAcctoMnMaxEndDate_1_0_1&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\servicefee\\mn\\getMnMaxEndDate_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -260,10 +240,8 @@ export function getAcctoMnMaxEndDate(data) {
 
 // web-新增服务定价-按型号名称
 export function insertAcctoMn(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/ExSql?SqlCmdName=web\\cat\\servicefee\\mn\\insertAcctoMn_1_0_1&DBC=w_m',
+    url: '/ExSql?SqlCmdName=aprc\\web\\servicefee\\mn\\insertMn_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -271,10 +249,8 @@ export function insertAcctoMn(data) {
 
 // web-查询供方型号服务定价详情-按型号名称
 export function getAcctoMnPersModelDetail(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\servicefee\\mn\\getAcctoMnPersModelDetail_1_0_1&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\servicefee\\mn\\getDetail_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -282,10 +258,8 @@ export function getAcctoMnPersModelDetail(data) {
 
 // web-删除型号定价-按型号名称
 export function deleteMn(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/ExSql?SqlCmdName=web\\cat\\servicefee\\mn\\deleteMn_1_0_1&DBC=w_m',
+    url: '/ExSql?SqlCmdName=aprc\\web\\servicefee\\mn\\deleteMn_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })

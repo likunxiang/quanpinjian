@@ -4,15 +4,9 @@
       <span class="bold">品类名称：</span>
       <span class="ml10">{{openRow.categoryName}}</span>
     </el-row>
-    <el-row>
-      <el-row class="mt20 flex">
-        <div class="bold mr20">板块名称</div>
-        <div class="">{{tableData[0].plateName}}</div>
-      </el-row>
-      <el-row class="mt10 flex">
-        <div class="bold mr20">板块类型</div>
-        <div class="">{{tableData[0].plateTypeName}}</div>
-      </el-row>
+    <el-row class="mt20 flex">
+      <div class="bold mr20">板块名称</div>
+      <div class="">{{openRow.plateName}}</div>
     </el-row>
     <el-row class="mt20">
       <el-table :data="tableData" border style="width: 100%">
@@ -21,18 +15,18 @@
             <p>{{scope.row.plateFieldName}}</p>
           </template>
         </el-table-column>
-        <el-table-column prop="nameFrom" label="字段名称来源" align="center">
+        <!-- <el-table-column prop="nameFrom" label="字段名称来源" align="center">
           <template slot-scope="scope">
             <p>{{scope.row.plateFieldSource=="1"?'固化':'自建'}}</p>
           </template>
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column prop="contentFrom" label="字段内容来源" align="center">
           <template slot-scope="scope">
-            <p v-if="scope.row.plateFieldContentSource > 0" class="el-icon-check"></p>
+            <p v-if="scope.row.fieldContentSource > 0" class="el-icon-check"></p>
             <p v-else class="">未设置</p>
           </template>
         </el-table-column>
-        <el-table-column prop="demander" label="供方操作设置" align="center">
+        <el-table-column prop="demander" label="需方操作设置" align="center">
           <template slot-scope="scope">
             <p v-if="scope.row.operation > 0" class="el-icon-check"></p>
             <p v-else class="">未设置</p>
@@ -40,9 +34,9 @@
         </el-table-column>
         <el-table-column prop="fieldMessage" label="字段内容管理" align="center">
           <template slot-scope="scope">
-            <p v-if="scope.row.plateFieldContentSource=='3' || scope.row.plateFieldContentSource=='4'" class="el-icon-check">
+            <p v-if="scope.row.fieldContentSource=='3' || scope.row.fieldContentSource=='4'" class="el-icon-check">
             </p>
-            <p v-else-if="scope.row.content==='1'" class="el-icon-check"></p>
+            <p v-else-if="scope.row.contentSetFlag==='1'" class="el-icon-check"></p>
             <p v-else class="">未设置</p>
           </template>
         </el-table-column>
@@ -52,7 +46,7 @@
               <el-button @click="openContentFrom(scope.row,scope.$index)" type="text" size="small">内容来源设置</el-button>
             </el-row>
             <el-row>
-              <el-button @click="openDemander(scope.row,scope.$index)" type="text" size="small">需方操作设置</el-button>
+              <el-button @click="openDemander(scope.row,scope.$index)" type="text" size="small">{{openRow.catTreeCode=='demand'?'需方':'供方'}}操作设置</el-button>
             </el-row>
             <el-row>
               <el-button @click="openFieldMessage(scope.row,scope.$index)" type="text" size="small">字段内容管理</el-button>
@@ -70,8 +64,8 @@
       @close="closeDemander" @refresh="getPlateFieldContents" :bizType="this.openRow.bizType"></userOperation>
 
     <!-- 字段内容管理 -->
-    <fieldContentManagement v-if="isFieldMessage" :type="openRow.catTreeCode" :categoryName="openRow.categoryName"
-      :fieldObj="tableData[0]" @close="closeFieldMessage" @refresh="getPlateFieldContents" :bizType="this.openRow.bizType"></fieldContentManagement>
+    <fieldContentManagement v-if="isFieldMessage" :type="openRow.catTreeCode" :categoryName="openRow.categoryName" :categoryGuid="openRow.categoryGuid"
+      :fieldObj="tableData[0]" @close="closeFieldMessage" @refresh="getPlateFieldContents" :bizType="openRow.bizType"></fieldContentManagement>
   </div>
 </template>
 
@@ -96,7 +90,7 @@
     data() {
       return {
         openRow: {},
-        tableData: [],
+        tableData: [{plateName:'',plateFieldName:''}],
         loading: false,
         isContentFrom: false,
         contentFromList: [],
@@ -129,15 +123,18 @@
       async getPlateFieldContents() {
         await getPlateFieldContents({
           plateFieldGuid: this.openRow.plateFieldGuid,
-          catTreeCode: this.openRow.type || this.openRow.catTreeCode,
-          bizType: this.openRow.bizType,
-          categoryGuid: this.openRow.categoryGuid,
+		  curUserId: this.$store.state.user.adminId,
+          // catTreeCode: this.openRow.catTreeCode,
+          // bizType: this.openRow.bizType,
+          // categoryGuid: this.openRow.categoryGuid,
         }).then(res => {
           this.loading = true
           console.log(res);
           if (res.Tag.length) {
             let data = res.Tag[0].Table
             this.tableData = data
+			this.tableData[0].plateName = this.openRow.plateName
+			this.tableData[0].plateFieldName = this.openRow.plateFieldName
           } else {
             this.tableData = []
           }

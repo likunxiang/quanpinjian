@@ -8,7 +8,7 @@
       <div class="" v-if="isToSearch">搜索结果：{{searchResult}}</div>
     </div> -->
     <el-table v-loading="loading" :data="tableData" border style="width: 100%">
-      <el-table-column prop="categoryName" label="品类类型" align="center" >
+      <el-table-column prop="cattypeName" label="品类类型" align="center" >
       </el-table-column>
       <el-table-column prop="record" label="发布记录" align="center" >
         <template slot-scope="scope">
@@ -81,7 +81,7 @@
         this.getDealRules()
       },
       setting(row) {
-        this.existsByCGuid(row.categoryName, row.categoryGuid, () => {
+        this.existsByCGuid(row.categoryName, row.categoryGuid,row.dealRuleGuid, () => {
           this.openRow = row
           this.isSetting = true
         })
@@ -91,7 +91,7 @@
       },
       release(row) {
         let catDealRuleGuid = row.dealRuleGuid
-        this.existsByCGuid(row.categoryName, row.categoryGuid, () => {
+        this.existsByCGuid(row.categoryName, row.categoryGuid,row.dealRuleGuid, () => {
           this.publishDealRule(catDealRuleGuid)
         })
       },
@@ -115,7 +115,8 @@
       // 发布节点交易规则
       async publishDealRule(id) {
         await publishDealRule({
-          catDealRuleGuid: id
+          dealRuleGuid: id,
+		  curUserId: this.$store.state.user.adminId,
         }).then(res => {
           if (res.Tag[0].Table[0].publishNum > 0) {
             // 非第一次
@@ -130,17 +131,19 @@
         })
       },
       // 删除不存在的品类
-      async deleteDealRule(cid) {
+      async deleteDealRule(did) {
         await deleteDealRule({
-          categoryGuid: cid
+          dealRuleGuid: did,
+		  curUserId: this.$store.state.user.adminId,
         }).then(res => {
 
         })
       },
       // 查询和发布先调用这个接口
-      async existsByCGuid(name, cid, callback) {
+      async existsByCGuid(name, cid, did, callback) {
         await existsByCGuid({
-          categoryGuid: cid
+          categoryGuid: cid,
+		  curUserId: this.$store.state.user.adminId,
         }).then(res => {
           if (res.Tag[0].Table[0].num === 0) {
             // 当返回为0时，说明该品类已不存在，要删除交易id
@@ -152,7 +155,7 @@
               showCancelButton: false,
               type: 'info'
             }).then(() => {
-              this.deleteDealRule(cid)
+              this.deleteDealRule(did)
             })
 
           } else {
@@ -163,7 +166,9 @@
       },
       async getDealRules() {
         this.loading = true
-        await getCattypeDealRules_1_0_1().then(res => {
+        await getCattypeDealRules_1_0_1({
+			curUserId: this.$store.state.user.adminId,
+		}).then(res => {
           this.loading = false
           console.log(res);
           if (res.Tag.length) {

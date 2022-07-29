@@ -25,13 +25,13 @@
       </el-table-column>
     </el-table>
     <pages :total="pageTotal" @changePage="changePage" :page="page"></pages>
-    <intelligenceDetail v-if="isDetail" @close="closeDetail" @refresh="getApprovedUserList" :row="openRow" :categoryName="row.categoryName"></intelligenceDetail>
+    <intelligenceDetail v-if="isDetail" @close="closeDetail" @refresh="getUserList" :row="openRow" :categoryName="row.categoryName"></intelligenceDetail>
   </div>
 </template>
 
 <script>
   import {
-    getApprovedUserList
+    getUserList
   } from '@/api/operationRoleApi/catDealManagement.js'
   import pages from '@/views/components/common/pages.vue'
   import intelligenceDetail from '@/views/operationRole/catDealManagement/catUserAptitude/onePans/intelligenceDetail.vue'
@@ -70,7 +70,7 @@
           this.isToSearch = false
         }
 		this.page = 1
-        this.getApprovedUserList()
+        this.getUserList()
       },
       openDetail(row) {
         this.openRow = row
@@ -81,15 +81,16 @@
       },
       changePage(page) {
         this.page = page
-        this.getApprovedUserList()
+        this.getUserList()
       },
-      async getApprovedUserList() {
+      async getUserList() {
 		this.loading = true
-        await getApprovedUserList({
-          qualificationGuid: this.row.qualificationGuid,
-          approveFlag: 2,
+        await getUserList({
+          categoryGuid: this.row.categoryGuid,
+          approveFlag: 1,
           page: this.page,
-          size: '20'
+          size: '20',
+          curUserId: this.$store.state.user.adminId,
         }).then(res => {
 		  this.loading = false
           console.log(res);

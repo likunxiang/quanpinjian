@@ -36,10 +36,8 @@ export function GetfeeNo(data) {
 
 // web-编辑字段别名
 export function updatePlateFieldAlias(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/ExSql?SqlCmdName=web\\model\\updatePlateFieldAlias&DBC=w_m',
+    url: '/ExSql?SqlCmdName=aprc\\web\\model\\plates\\updatePlateFieldAlias_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })

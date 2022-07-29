@@ -15,7 +15,7 @@ const basics = {
     img_url_plate: process.env.VUE_APP_BASE_URL_ASSETS + '/Enclosure/PLATE/IMAGES/',  // 板块图片文件夹
     file_url_plate: process.env.VUE_APP_BASE_URL_ASSETS + '/Enclosure/PLATE/FILES/',  // 板块文件文件夹
     file_url_sign: process.env.VUE_APP_BASE_URL_ASSETS + '/Enclosure/ORG/SIGN/IMAGES/',  // 机构签约文件夹
-    img_url_servicefee: process.env.VUE_APP_BASE_URL_ASSETS + '/Enclosure/SERVICEFEE/MN/IMAGES/', // 定价专员-按型号名称-定价说明图片上传文件夹
+    img_url_servicefee: process.env.VUE_APP_BASE_URL_ASSETS + '/Enclosure/APRC/SERVICEFEE/MN/IMAGES/', // 定价专员-按型号名称-定价说明图片上传文件夹
     img_url_idcard: process.env.VUE_APP_BASE_URL_ASSETS + '/Enclosure/WEBUSER/IDCARD/', // web用户实名认证图片文件夹
   },
   mutations: {

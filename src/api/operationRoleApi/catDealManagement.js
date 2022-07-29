@@ -3,10 +3,8 @@ import axios from 'axios'
 
 // web-查询品类采购资质列表（管制品类即为有采购资质的）
 export function getList(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\buyqualification\\getList&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\buyqualification\\info\\getList_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -14,10 +12,8 @@ export function getList(data) {
 
 // web-添加管制品类
 export function addCategory(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/ExSql?SqlCmdName=web\\cat\\buyqualification\\addCategory&DBC=w_m',
+    url: '/ExSql?SqlCmdName=aprc\\web\\buyqualification\\info\\addCategory_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -25,10 +21,8 @@ export function addCategory(data) {
 
 // web-删除管制品类
 export function deleteClass(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/ExSql?SqlCmdName=web\\cat\\buyqualification\\delete&DBC=w_m',
+    url: '/ExSql?SqlCmdName=aprc\\web\\buyqualification\\info\\delete_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -36,10 +30,8 @@ export function deleteClass(data) {
 
 // web-查询品类资质审批统计列表
 export function getApproveList(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\buyqualification\\getApproveList&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\buyqualification\\approve\\getStatictisByCGuid_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -47,10 +39,8 @@ export function getApproveList(data) {
 
 // web-查询品类资质用户列表
 export function getUserList(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\buyqualification\\getUserList&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\buyqualification\\approve\\getApproUserList_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -69,10 +59,8 @@ export function getWaitApproUserList(data) {
 
 // web-统计用户申请的资质审批(通过/不通过)数量
 export function getApprovedDetailCount(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\buyqualification\\getApprovedDetailCount&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\buyqualification\\approve\\getCountAF1&2_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -83,7 +71,7 @@ export function updateApprove(data) {
   axios.defaults.baseURL = '/api'
   return request({
     xf_url: '/api',
-    url: '/ExSql?SqlCmdName=web\\cat\\buyqualification\\updateApprove&DBC=w_m',
+    url: '/ExSql?SqlCmdName=aprc\\web\\buyqualification\\approve\\updateAF_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -102,10 +90,8 @@ export function getApprovedUserList(data) {
 
 // web-查询用户资质详情
 export function getUserIntelligence(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=WEB\\cat\\buyqualification\\getPlates,WEB\\cat\\buyqualification\\getPlateTypes,WEB\\cat\\buyqualification\\getPlateFields,WEB\\cat\\buyqualification\\getPlateFieldContents,WEB\\cat\\buyqualification\\getPlateFieldValues&DBC=w_m',
+    url: '/QueryData?SqlCmdName= aprc\\web\\buyqualification\\plates\\getUserQuaDetail_1_0_1,aprc\\web\\buyqualification\\plates\\getPlates_1_0_1,aprc\\web\\buyqualification\\plates\\getPlateFields_1_0_1,aprc\\web\\buyqualification\\plates\\getPlateFieldValues_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -113,21 +99,26 @@ export function getUserIntelligence(data) {
 
 // web-发布采购资质信息-判断是否可以发布
 export function isCanPublish(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\buyqualification\\isCanPublish&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\buyqualification\\info\\isCanPublish_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
 }
 
-// web-发布采购资质信息-判断是否可以发布
+// web-发布采购资质信息-发布
 export function publish(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\buyqualification\\publish&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\buyqualification\\info\\publish_1_0_1&DBC=w_a',
+    method: 'post',
+    data: data
+  })
+}
+
+// web-查询供需需求信息发布记录
+export function getDealRulePublishHistory(data) {
+  return request({
+    url: '/QueryData?SqlCmdName=aprc\\web\\buyqualification\\info\\getPublishHistory_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -245,10 +236,8 @@ export function getOneCatOrderDetailMonth(data) {
 
 // web-查询未管制的品类列表
 export function getCategoryList(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\buyqualification\\getCategoryList&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\buyqualification\\info\\getUnLimitCatgList_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })

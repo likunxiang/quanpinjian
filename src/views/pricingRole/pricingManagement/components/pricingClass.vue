@@ -67,7 +67,7 @@
     data() {
       return {
         isOpen: true,
-        targetObject: '',
+        targetObject: 'demand',
         collectRatio: '',
         loading: false,
       };
@@ -87,7 +87,10 @@
       async insertRatioOfType1() {
         await insertRatioOfType1({
           categoryGuid: this.openRow.categoryGuid,
-          ratio: parseInt(this.collectRatio)
+		  chargeType: '1',
+		  chargeValue: parseInt(this.collectRatio),
+		  targetObject: this.targetObject,
+          curUserId: this.$store.state.user.adminId,
         }).then(res => {
           console.log(res);
           if(res.Tag[0]>0) {
@@ -108,7 +111,8 @@
       // 按品类
       async getDetailOfType1() {
         await getDetailOfType1({
-          categoryGuid: this.openRow.categoryGuid
+          categoryGuid: this.openRow.categoryGuid,
+		  curUserId: this.$store.state.user.adminId,
         }).then(res => {
           this.loading = false
           console.log(res);

@@ -8,7 +8,7 @@
       <el-tab-pane :label="`未审批(` + openRow.approveFlag0 + `)`" name="first">
         <nonApproveList :row="openRow" v-if="activeName=='first'"></nonApproveList>
       </el-tab-pane>
-      <el-tab-pane :label="`审批(` + openRow.approveFlag1 + `)`" name="second">
+      <el-tab-pane :label="`审批(` + (parseInt(openRow.approveFlag1) + parseInt(openRow.approveFlag2)) + `)`" name="second">
         <approveList :row="openRow" v-if="activeName=='second'"></approveList>
       </el-tab-pane>
     </el-tabs>

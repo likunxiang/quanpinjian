@@ -39,7 +39,6 @@ let service = axios
 
 // request拦截器
 service.interceptors.request.use(config => {
-	console.log('config', config);
 	// 动态设置代理
 	// if(config.xfurl) {
 	//   axios.defaults.baseURL = config.xfurl

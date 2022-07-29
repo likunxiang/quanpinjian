@@ -31,8 +31,8 @@
 			</el-row>
 			<el-row class="mt20 pb20">
 				<div v-for="(item,index) in plate" :key="index">
-					<div class="flex jsb flex-center mb10" v-if="item.name">
-						<div>{{item.name}}</div>
+					<div class="flex jsb flex-center mb10" v-if="item.fixedDataName">
+						<div>{{item.fixedDataName}}</div>
 						<el-button v-if="item.check">已添加</el-button>
 						<el-button v-else type="primary" @click="checkPlate(index)">添加</el-button>
 					</div>
@@ -64,14 +64,12 @@
 <script>
 	import {
 		getPlates,
+		getFreePlates,
 		addPlate,
-    getPlateAddFlag,
+		getPlateAddFlag,
 		updatePlateAlias,
 		deletePlate
 	} from '@/api/modelRoleApi/tradingContent.js'
-	import {
-		getFixedData
-	} from '@/api/modelRoleApi/immobilizationContent.js'
 	export default {
 		name: "index",
 		data() {
@@ -131,7 +129,7 @@
 			},
 			addPlate(row) {
 				this.isAdd = true
-				this.getFixedData()
+				this.getFreePlates()
 			},
 			closePlate() {
 				this.isAdd = false
@@ -139,15 +137,18 @@
 			},
 			checkPlate(index) {
 				this.plate[index].check = true
-        this.plate = this.clone(this.plate)
-				let plateId = this.plate[index].fixedDataGuid
-				this.getPlateAddFlag(plateId)
-        
+				this.plate = this.clone(this.plate)
+				// let plateId = this.plate[index].fixedDataCode
+				// this.getPlateAddFlag(plateId)
+				let plateObj = this.plate[index]
+				this.addPlated(plateObj)
+
 			},
 			// 删除板块
 			async deletePlate(id) {
 				await deletePlate({
-					plateGuid: id
+					plateGuid: id,
+					curUserId: this.$store.state.user.adminId,
 				}).then(res => {
 					this.getPlates()
 				})
@@ -156,7 +157,8 @@
 			async updatePlateAlias() {
 				await updatePlateAlias({
 					plateGuid: this.oldPlate.plateGuid,
-					plateAlias: this.editName
+					plateAlias: this.editName,
+					curUserId: this.$store.state.user.adminId,
 				}).then(res => {
 					console.log(res);
 					this.closeEdit()
@@ -165,12 +167,15 @@
 				})
 			},
 			// 添加板块 要先去请求固化库板块名称
-			async addPlated(id) {
+			async addPlated(obj) {
 				await addPlate({
 					catTreeCode: this.openRow.type || this.openRow.catTreeCode,
 					categoryGuid: this.openRow.categoryGuid,
-					fixedDataGuid: id,
+					cattypeGuid: this.openRow.categoryGuid,
 					bizType: this.openRow.bizType,
+					curUserId: this.$store.state.user.adminId,
+					fixedDataCode: obj.fixedDataCode,
+					 fixedDataName: obj.fixedDataName,
 				}).then(res => {
 					if (res.Tag[0] > 0) {
 						this.$message({
@@ -178,41 +183,44 @@
 							type: 'success'
 						})
 					} else {
-            this.$message({
-            	message: '添加失败',
-            	type: 'error'
-            })
-          }
+						this.$message({
+							message: '添加失败',
+							type: 'error'
+						})
+					}
 
 				})
 			},
-      // 先用这个接口判断是否重复
-      async getPlateAddFlag(id) {
-        await getPlateAddFlag({
-          catTreeCode: this.openRow.type || this.openRow.catTreeCode,
-          categoryGuid: this.openRow.categoryGuid,
-          fixedDataGuid: id,
-          bizType: this.openRow.bizType,
-        }).then(res => {
-          console.log(res);
-          if (res.Tag[0].Table[0].addFlag > 0) {
-            this.$message({
-              message: '已添加，不可以重复添加',
-              type: 'info'
-            })
-          } else {
-            this.addPlated(id)
-          }
-        })
-      },
-			// 获取固化库板块名称
-			async getFixedData() {
-				await getFixedData({
-					type: 1,
-					name: '',
+			// 先用这个接口判断是否重复
+			// async getPlateAddFlag(id) {
+			// 	await getPlateAddFlag({
+			// 		catTreeCode: this.openRow.type || this.openRow.catTreeCode,
+			// 		categoryGuid: this.openRow.categoryGuid,
+			// 		fixedDataGuid: id,
+			// 		bizType: this.openRow.bizType,
+			// 		curUserId: this.$store.state.user.adminId,
+			// 	}).then(res => {
+			// 		console.log(res);
+			// 		if (res.Tag[0].Table[0].addFlag > 0) {
+			// 			this.$message({
+			// 				message: '已添加，不可以重复添加',
+			// 				type: 'info'
+			// 			})
+			// 		} else {
+			// 			this.addPlated(id)
+			// 		}
+			// 	})
+			// },
+			// 查询可添加的板块列表
+			async getFreePlates() {
+				await getFreePlates({
+					catTreeCode: this.openRow.type || this.openRow.catTreeCode,
+					categoryGuid: this.openRow.categoryGuid,
 					bizType: '1',
+					fixedDataBizType: '1',
 					page: 1,
-					size: '200'
+					size: '200',
+					curUserId: this.$store.state.user.adminId,
 				}).then(res => {
 					console.log(res);
 					if (res.Tag.length) {
@@ -227,7 +235,8 @@
 					bizType: this.openRow.bizType,
 					categoryGuid: this.openRow.categoryGuid,
 					fixedDataBizType: '1',
-          plateTypeGuid: '',
+					plateFixedDataCode: '',
+					curUserId: this.$store.state.user.adminId,
 				}).then(res => {
 					console.log(res);
 					if (res.Tag.length) {

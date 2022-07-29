@@ -43,7 +43,7 @@
       async getPublishHistory() {
         await getPublishHistorySupplyassign({
           categoryGuid: this.openRow.categoryGuid,
-          bizType: this.bizType
+          curUserId: this.$store.state.user.adminId,
         }).then(res => {
           console.log(res);
           if (res.Tag.length) {

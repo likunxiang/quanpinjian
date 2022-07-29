@@ -70,8 +70,8 @@
       @close="closeDemander" @refresh="getPlateFieldContents" :bizType="this.openRow.bizType"></userOperation>
 
     <!-- 字段内容管理 -->
-    <fieldContentManagement v-if="isFieldMessage" :type="openRow.catTreeCode" :categoryName="openRow.categoryName"
-      :fieldObj="tableData[0]" @close="closeFieldMessage" @refresh="getPlateFieldContents" :bizType="this.openRow.bizType"></fieldContentManagement>
+    <fieldContentManagement v-if="isFieldMessage" :type="openRow.catTreeCode" :categoryName="openRow.categoryName" :categoryGuid="openRow.categoryGuid"
+      :fieldObj="tableData[0]" @close="closeFieldMessage" @refresh="getPlateFieldContents" :bizType="openRow.bizType"></fieldContentManagement>
   </div>
 </template>
 

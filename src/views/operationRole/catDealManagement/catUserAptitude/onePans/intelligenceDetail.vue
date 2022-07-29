@@ -1,7 +1,7 @@
 <template>
   <el-dialog title="资质详情" :visible.sync="isOpen" width="700px" @close="beforeClose">
     <div class="flex flex-center mb10">
-      <div class="my-label">品类名称1</div>
+      <div class="my-label">品类名称</div>
       <div>{{categoryName}}</div>
     </div>
     <div class="flex flex-center mb10">
@@ -15,10 +15,6 @@
     <div class="flex flex-center mb10">
       <div class="my-label">联系电话</div>
       <div>{{row.phonenumber}}</div>
-    </div>
-    <div class="flex flex-center mb10">
-      <div class="my-label">角色类型</div>
-      <div>{{row.roleType}}</div>
     </div>
     <div v-for="(item,index) in tableData" :key='index'>
       <div class="title-bg mb10">{{item.name}}</div>
@@ -125,7 +121,8 @@
       },
       async getUserIntelligence() {
         await getUserIntelligence({
-          qualificationUserGuid: this.row.qualificationGuid
+          qualificationUserGuid: this.row.qualificationGuid,
+		  curUserId: this.$store.state.user.adminId,
         }).then(res => {
           console.log(res);
           let data = []
@@ -141,6 +138,7 @@
         await updateApprove({
           qualificationUserGuid: this.row.qualificationGuid,
           approveFlag: status,
+		  curUserId: this.$store.state.user.adminId,
         }).then(res => {
           if (res.Tag[0] > 0) {
             this.$message({

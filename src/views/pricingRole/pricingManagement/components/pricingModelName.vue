@@ -248,7 +248,7 @@
             } else {
               this.$message({
                 type: 'error',
-                message: '操作失败!'
+                message: '供方型号已失效或起止时间有重叠，请检查后再处理！'
               });
               this.$refs.upload.clearFiles()
               this.imgList = []
@@ -276,7 +276,7 @@
         const response = await uploadImgToBase64(item.file)
         const base64File = response.result.replace(/.*;base64,/, '')
         let FileName = item.file.name
-        let FilePath = 'servicefee\\mn\\images'
+        let FilePath = 'aprc\\servicefee\\mn\\images'
         let data = base64File
         this.loading = true
         upLoadImgApi(data, FileName, FilePath).then(res => {

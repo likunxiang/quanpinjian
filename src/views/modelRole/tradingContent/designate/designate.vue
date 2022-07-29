@@ -79,7 +79,6 @@
 		getRuleType,
 		updatePublishFlag,
 		getPublishHistory,
-		supplyassignIsCanPublish
 	} from '@/api/modelRoleApi/tradingContent.js'
 	import {
 		existsByCGuid,
@@ -133,7 +132,7 @@
 			select(row) {
 				this.isAssign = true
 				this.openRow = row
-				this.getRuleType(row.assignGuid)
+				this.getRuleType(row.categoryGuid)
 			},
 			closeAssign() {
 				this.isAssign = false
@@ -145,13 +144,14 @@
 				this.existsByCGuid(row.categoryName, row.categoryGuid, row.assignGuid, () => {
 					let isFirst = row.publishFlag == 0 ? true : false
 					// this.supplyassignIsCanPublish(row.categoryGuid, isFirst , row.assignGuid)
-					this.updatePublishFlag(row.assignGuid, isFirst)
+					this.updatePublishFlag(row.categoryGuid, isFirst)
 				})
 			},
 			// 发布指派规则
 			async updatePublishFlag(aid, isFirst) {
 				await updatePublishFlag({
-					assignGuid: aid
+					categoryGuid: aid,
+					curUserId: this.$store.state.user.adminId,
 				}).then(res => {
 					if (isFirst) {
 						this.$alert('发布成功', '', {
@@ -169,25 +169,6 @@
 						});
 					}
 
-				})
-			},
-			// 判断是否可以发布
-			async supplyassignIsCanPublish(id, isFirst, aid) {
-				await supplyassignIsCanPublish({
-					categoryGuid: id
-				}).then(res => {
-					console.log(res);
-					if (res.Tag[0].Table[0].canPublish > 0) {
-						// 可以发布
-						this.updatePublishFlag(aid, isFirst)
-					} else {
-						let msg = res.Tag[0].Table[0].notPublishReason
-						// 不可以发布
-						this.$alert(msg, '', {
-							confirmButtonText: '知道了',
-							callback: action => {}
-						});
-					}
 				})
 			},
 			openRecord(row) {
@@ -209,18 +190,19 @@
 						this.priceList[i].check = false
 					}
 				}
-        if(index == 0) {
-          this.radioAssign = 1
-        } else {
-          this.radioAssign = 2
-        }
+				if (index == 0) {
+					this.radioAssign = 1
+				} else {
+					this.radioAssign = 2
+				}
 				console.log(this.priceList);
 				this.priceList = this.clone(this.priceList)
 			},
 			// 查询和发布先调用这个接口
 			async existsByCGuid(name, cid, did, callback) {
 				await existsByCGuid({
-					categoryGuid: cid
+					categoryGuid: cid,
+					curUserId: this.$store.state.user.adminId,
 				}).then(res => {
 					if (res.Tag[0].Table[0].num == 0) {
 						// 当返回为0时，说明该品类已不存在，要删除交易id
@@ -253,7 +235,8 @@
 			async setRuleType() {
 				await setRuleType({
 					categoryGuid: this.openRow.categoryGuid,
-					ruleType: this.radioAssign
+					ruleType: this.radioAssign,
+					curUserId: this.$store.state.user.adminId,
 				}).then(res => {
 					if (res.Tag[0] > 0) {
 						this.$message({
@@ -261,7 +244,7 @@
 							message: '操作成功!'
 						});
 						this.isAssign = false
-            this.getAssigns()
+						this.getAssigns()
 					} else {
 						this.$message({
 							type: 'error',
@@ -273,32 +256,34 @@
 			// 获取指派规则
 			async getRuleType(id) {
 				await getRuleType({
-					assignGuid: id
+					categoryGuid: id,
+					curUserId: this.$store.state.user.adminId,
 				}).then(res => {
 					console.log(res);
 					if (res.Tag.length) {
-					  let ruleType = res.Tag[0].Table[0].ruleType
-            let priceList = this.priceList
-            if(ruleType == 0) {
-              for (let i in priceList) {
-                priceList[i].check  = false
-              }
-            } else {
-              if (ruleType == 1) {
-                priceList[0].check  = true
-              } else if (ruleType == 2) {
-                priceList[1].check  = true
-              }
+						let ruleType = res.Tag[0].Table[0].ruleType
+						let priceList = this.priceList
+						if (ruleType == 0) {
+							for (let i in priceList) {
+								priceList[i].check = false
+							}
+						} else {
+							if (ruleType == 1) {
+								priceList[0].check = true
+							} else if (ruleType == 2) {
+								priceList[1].check = true
+							}
 
-            }
-            this.priceList = priceList
+						}
+						this.priceList = priceList
 					}
 				})
 			},
 			async getAssigns() {
 				this.loading = true
 				await getAssigns({
-					categoryName: this.searchVal
+					categoryName: this.searchVal,
+					curUserId: this.$store.state.user.adminId,
 				}).then(res => {
 					this.loading = false
 					if (res.Tag.length) {

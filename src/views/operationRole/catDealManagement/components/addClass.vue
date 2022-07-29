@@ -1,8 +1,8 @@
 <template>
 	<el-dialog title="添加管制品类名称" :visible.sync="isOpen" width="700px" @close="beforeClose">
 		<div class="flex flex-center mt20">
-			<el-input placeholder="请输入你要找的品类名称" clearable v-model="searchVal"
-				@keyup.enter.native="search" style="width: 200px;margin-right: 20px;" @clear="search">
+			<el-input placeholder="请输入你要找的品类名称" clearable v-model="searchVal" @keyup.enter.native="search"
+				style="width: 200px;margin-right: 20px;" @clear="search">
 				<i class="el-icon-search el-input__icon" slot="suffix" @click="search" />
 			</el-input>
 			<div class="" v-if="isToSearch">搜索结果：{{searchResult}}</div>
@@ -11,7 +11,7 @@
 			<div class="flex jsb flex-center mb10" v-for="(item,index) in tableData" :key="index">
 				<div>{{item.categoryName}}</div>
 				<el-button v-if="item.addedFlag==1 || item.check==true">已添加</el-button>
-				<el-button v-else type="primary" @click="getAddedFlag(index,item.categoryGuid)">添加</el-button>
+				<el-button v-else type="primary" @click="addCategory(index,item.categoryGuid)">添加</el-button>
 			</div>
 		</el-row>
 		<pages @changePage="changePage" :page="page" :total='pageTotal'></pages>
@@ -20,7 +20,7 @@
 
 <script>
 	import {
-    getCategoryList,
+		getCategoryList,
 		addCategory,
 		getAddedFlag
 	} from '@/api/operationRoleApi/catDealManagement.js'
@@ -63,24 +63,27 @@
 				this.page = 1
 				this.getCategoryList()
 			},
-			async getAddedFlag(index,id) {
-				await getAddedFlag({
-					categoryGuid: id
-				}).then(res => {
-					console.log(res);
-					if (res.Tag[0].Table[0].addedFlag > 0) {
-						this.$message({
-							type: 'error',
-							message: '添加失败,不可重复添加'
-						})
-					} else {
-						this.addCategory(index,id)
-					}
-				})
-			},
-			async addCategory(index,id) {
+			// 查询是否重复添加，已去除
+			// async getAddedFlag(index, id) {
+			// 	await getAddedFlag({
+			// 		categoryGuid: id,
+					
+			// 	}).then(res => {
+			// 		console.log(res);
+			// 		if (res.Tag[0].Table[0].addedFlag > 0) {
+			// 			this.$message({
+			// 				type: 'error',
+			// 				message: '添加失败,不可重复添加'
+			// 			})
+			// 		} else {
+			// 			this.addCategory(index, id)
+			// 		}
+			// 	})
+			// },
+			async addCategory(index, id) {
 				await addCategory({
 					categoryGuid: id,
+					curUserId: this.$store.state.user.adminId,
 				}).then(res => {
 					console.log(res);
 					if (res.Tag[0] > 0) {
@@ -88,8 +91,8 @@
 							type: 'success',
 							message: '添加成功'
 						})
-            this.tableData[index].check = true
-            this.getCategoryList()
+						this.tableData[index].check = true
+						this.getCategoryList()
 					} else {
 						this.$message({
 							type: 'error',
@@ -103,7 +106,8 @@
 				await getCategoryList({
 					categoryName: this.searchVal,
 					size: '20',
-					page: this.page
+					page: this.page,
+					curUserId: this.$store.state.user.adminId,
 				}).then(res => {
 					console.log(res);
 					if (res.Tag.length) {
