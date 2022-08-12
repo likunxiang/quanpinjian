@@ -165,33 +165,33 @@
 			},
 			// 发布单个
 			async publishDealMode1(cid) {
-				let id = this.publishGuidList[this.publishStep].supplyPriceGuid
-				let loadingText = '发布中,请不要进行别的操作' + '(' + this.publishStep + '/' + this.publishGuidList.length + ')'
-				this.loadingText = loadingText
-				await publish1({
-					categoryGuid: cid,
-					curUserId: this.$store.state.user.adminId,
-				}).then(res => {
-					if (res.OK == 'True') {
-						let isFirst = res.Tag[0].Table[0].publishNum > 0 ? false : true
-						this.publishStep = this.publishStep + 1
-						if (this.publishStep == this.publishGuidList.length) {
-							this.loading = false
-							this.clearTemporaryValue(cid)
-						} else {
-							this.publishDealMode1()
-						}
-
-					} else {
-						this.$message({
-							type: 'error',
-							message: '发布失败!'
-						});
-						this.loading = false
-						return false
-					}
-
-				})
+			  let id = this.publishGuidList[this.publishStep].category_guid
+			  let loadingText = '发布中,请不要进行别的操作' + '(' + this.publishStep + '/' + this.publishGuidList.length + ')'
+			  this.loadingText = loadingText
+			  await publish1({
+			    categoryGuid: id,
+				curUserId: this.$store.state.user.adminId,
+			  }).then(res => {
+			    if (res.OK == 'True') {
+			      let isFirst = res.Tag[0].Table[0].publishNum > 0 ? false : true
+			      this.publishStep = this.publishStep + 1
+			      if (this.publishStep == this.publishGuidList.length) {
+			        this.loading = false
+			        this.clearTemporaryValue(cid)
+			      } else {
+			        this.publishDealMode1(cid)
+			      }
+			
+			    } else {
+			      this.$message({
+			        type: 'error',
+			        message: '发布失败!'
+			      });
+			      this.loading = false
+			      return false
+			    }
+			
+			  })
 			},
 			// 清理临时值
 			async clearTemporaryValue(id) {

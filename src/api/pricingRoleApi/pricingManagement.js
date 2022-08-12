@@ -4,7 +4,7 @@ import axios from 'axios'
 // web-查询交易服务定价列表
 export function getList(data) {
   return request({
-    url: '/QueryData?SqlCmdName=aprc\\web\\servicefee\getCatgList_1_0_1&DBC=w_a',
+    url: '/QueryData?SqlCmdName=aprc\\web\\servicefee\\getCatgList_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -195,6 +195,15 @@ export function insertAcctoMt(data) {
 export function getSupplierCount(data) {
   return request({
     url: '/QueryData?SqlCmdName=aprc\\web\\servicefee\\mn\\getSupplierCount_1_0_1&DBC=w_a',
+    method: 'post',
+    data: data
+  })
+}
+
+// web-查询某一品类服务机构供方定价列表-按型号名称
+export function getMnWorgSupplierList(data) {
+  return request({
+    url: '/QueryData?SqlCmdName=aprc\\web\\servicefee\\mn\\getMnWorgSupplierList_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })

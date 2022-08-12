@@ -87,8 +87,9 @@
 		this.loading = true
         await getUserList({
           categoryGuid: this.row.categoryGuid,
-          approveFlag: 1,
+          approveFlag: 2,
           page: this.page,
+		  phonenumber: this.searchVal,
           size: '20',
           curUserId: this.$store.state.user.adminId,
         }).then(res => {
@@ -119,7 +120,7 @@
       }
     },
     created() {
-      this.getApprovedUserList()
+      this.getUserList()
     }
   }
 </script>

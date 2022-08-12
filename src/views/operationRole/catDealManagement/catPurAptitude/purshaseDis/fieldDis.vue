@@ -54,6 +54,7 @@
     </el-dialog>
 
     <el-dialog title="添加库字段名称" width="700px" :visible.sync="isAdd" destroy-on-close>
+		<div style="max-height: 80vh;overflow-y: auto;">
     	<el-row>
     		<span class="bold">品类名称：</span>
     		<span class="ml10">{{openRow.categoryName}}</span>
@@ -72,6 +73,7 @@
     			<el-button v-else type="primary" @click="checkPlate(index,item.fixedDataCode)">添加</el-button>
     		</div>
     	</el-row>
+		</div>
     </el-dialog>
 
     <el-dialog title="新建字段名称" width="700px" :visible.sync="isNewField" destroy-on-close>

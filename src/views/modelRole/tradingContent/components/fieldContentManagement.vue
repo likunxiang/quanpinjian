@@ -1,31 +1,51 @@
 <template>
 	<el-dialog title="字段内容管理" :visible.sync="isOpen" width="700px" @close="beforeClose">
-		<el-row>
-			<el-descriptions border :column="1" size="medium">
-				<el-descriptions-item label="品类名称" v-if="!isUniversal">{{categoryName}}</el-descriptions-item>
-				<el-descriptions-item label="品类类型" v-if="isUniversal">{{categoryName}}</el-descriptions-item>
-				<el-descriptions-item label="板块名称">{{fieldObj.plateName}}</el-descriptions-item>
-				<!-- <el-descriptions-item label="板块类型">{{fieldObj.plateTypeName}}</el-descriptions-item> -->
-				<el-descriptions-item label="字段名称">{{fieldObj.plateFieldName}}</el-descriptions-item>
-				<el-descriptions-item label="字段名称来源">{{fieldObj.plateFieldSource=="1"?'固化':'自建'}}</el-descriptions-item>
-			</el-descriptions>
-		</el-row>
-		<el-row>
-			<p><span class="bold mr20">内容来源设置</span>
-				<span>{{contentSources}}</span>
-			</p>
-		</el-row>
-		<el-row>
-			<el-row v-if="fieldObj.fieldContentSource == 0">
-				<!-- 未设置 -->
+		<div style="padding-bottom: 20px;">
+			<el-row>
+				<el-descriptions border :column="1" size="medium">
+					<el-descriptions-item label="品类名称" v-if="!isUniversal">{{categoryName}}</el-descriptions-item>
+					<el-descriptions-item label="品类类型" v-if="isUniversal">{{categoryName}}</el-descriptions-item>
+					<el-descriptions-item label="板块名称">{{fieldObj.plateName}}</el-descriptions-item>
+					<!-- <el-descriptions-item label="板块类型">{{fieldObj.plateTypeName}}</el-descriptions-item> -->
+					<el-descriptions-item label="字段名称">{{fieldObj.plateFieldName}}</el-descriptions-item>
+					<el-descriptions-item label="字段名称来源">{{fieldObj.plateFieldSource=="1"?'固化':'自建'}}</el-descriptions-item>
+				</el-descriptions>
 			</el-row>
-			<el-row v-else-if="fieldObj.fieldContentSource == 1">
-				<!-- 固化 -->
-				<el-row class="mb10">
-					<el-button @click="openAddLib" :disabled="fieldBuildList.length>0">添加库名称</el-button>
+			<el-row>
+				<p><span class="bold mr20">内容来源设置</span>
+					<span>{{contentSources}}</span>
+				</p>
+			</el-row>
+			<el-row>
+				<el-row v-if="fieldObj.fieldContentSource == 0">
+					<!-- 未设置 -->
+				</el-row>
+				<el-row v-else-if="fieldObj.fieldContentSource == 1">
+					<!-- 固化 -->
+					<el-row class="mb10">
+						<el-button @click="openAddLib" :disabled="fieldBuildList.length>0">添加库名称</el-button>
+						<el-row class="mt10">
+							<el-table :data='fieldBuildList' border>
+								<el-table-column prop="content" label="字段名称"></el-table-column>
+								<el-table-column prop="fieldName" label="操作">
+									<template slot-scope="scope">
+										<el-button type="text" @click="delField(scope.row)">删除</el-button>
+									</template>
+								</el-table-column>
+							</el-table>
+						</el-row>
+					</el-row>
+				</el-row>
+			
+				<el-row v-else-if="fieldObj.fieldContentSource == 2">
+					<!-- 字段来源自建 -->
+					<el-row>
+						<el-button @click="openNewField">新建字段内容</el-button>
+						<el-button @click="openNewBatch">批量新建字段内容</el-button>
+					</el-row>
 					<el-row class="mt10">
 						<el-table :data='fieldBuildList' border>
-							<el-table-column prop="content" label="字段名称"></el-table-column>
+							<el-table-column prop="content" label="字段内容"></el-table-column>
 							<el-table-column prop="fieldName" label="操作">
 								<template slot-scope="scope">
 									<el-button type="text" @click="delField(scope.row)">删除</el-button>
@@ -34,46 +54,29 @@
 						</el-table>
 					</el-row>
 				</el-row>
-			</el-row>
-
-			<el-row v-else-if="fieldObj.fieldContentSource == 2">
-				<!-- 字段来源自建 -->
-				<el-row>
-					<el-button @click="openNewField">新建字段内容</el-button>
-					<el-button @click="openNewBatch">批量新建字段内容</el-button>
-				</el-row>
-				<el-row class="mt10">
-					<el-table :data='fieldBuildList' border>
-						<el-table-column prop="content" label="字段内容"></el-table-column>
-						<el-table-column prop="fieldName" label="操作">
-							<template slot-scope="scope">
-								<el-button type="text" @click="delField(scope.row)">删除</el-button>
-							</template>
-						</el-table-column>
-					</el-table>
-				</el-row>
-			</el-row>
-
-			<el-row v-else-if="fieldObj.fieldContentSource=='3'">
-				<el-row v-if="fieldObj.catTreeCode == 'supply'">
-					同需方，无需管理
+			
+				<el-row v-else-if="fieldObj.fieldContentSource=='3'">
+					<el-row v-if="fieldObj.catTreeCode == 'supply'">
+						同需方，无需管理
+					</el-row>
+					<el-row v-else>
+						无需管理
+					</el-row>
 				</el-row>
 				<el-row v-else>
 					无需管理
 				</el-row>
 			</el-row>
-			<el-row v-else>
-				无需管理
-			</el-row>
-		</el-row>
+			<pages @changePage="changePage" :total="pageTotal" :page="page"></pages>
+			<addLibName v-if="isAddLib" :fieldObj="fieldObj" :categoryGuid="categoryGuid" :contentSources="contentSources" @close="closeAddLib"
+				@getField="getField" :type="type" :bizType="bizType"></addLibName>
+			<newField v-if="isNew" @close="closeNewField" @submitNewField="submitNewField"></newField>
+			<newBatch v-if="isBatch" @close="closeNewBatch" @submitNewBatch="submitNewBatch"></newBatch>
+		</div>
 		<span slot="footer" class="dialog-footer">
 			<el-button @click="close">确 定</el-button>
 			<!-- <el-button type="primary" @click="submitFieldMessageObj">确 定</el-button> -->
 		</span>
-		<addLibName v-if="isAddLib" :fieldObj="fieldObj" :categoryGuid="categoryGuid" :contentSources="contentSources" @close="closeAddLib"
-			@getField="getField" :type="type" :bizType="bizType"></addLibName>
-		<newField v-if="isNew" @close="closeNewField" @submitNewField="submitNewField"></newField>
-		<newBatch v-if="isBatch" @close="closeNewBatch" @submitNewBatch="submitNewBatch"></newBatch>
 	</el-dialog>
 </template>
 
@@ -82,6 +85,7 @@
 	import batchImport from '@/views/modelRole/tradingContent/components/batchImport.vue' // 批量导入
 	import newField from '@/views/modelRole/tradingContent/components/newField.vue' // 批量导入
 	import newBatch from '@/views/modelRole/tradingContent/components/newBatch.vue' // 批量新建字段
+	import pages from '@/views/components/common/pages.vue'
 	import {
 		getPlateFieldDetail,
 		setPlateFieldContent,
@@ -93,7 +97,8 @@
 			addLibName,
 			batchImport,
 			newField,
-			newBatch
+			newBatch,
+			pages
 		},
 		props: {
 			categoryName: {
@@ -132,12 +137,18 @@
 				contentSources: '',
 				fieldSolidifyList: [], // 将要提交的列表
 				fieldBuildList: [], // 字段自建列表
+				page: 1,
+				pageTotal: 0,
 			};
 		},
 		methods: {
 			close() {
 				this.isOpen = false
 				this.$emit('close')
+			},
+			changePage(page) {
+				this.page = page
+				this.getPlateFieldDetail()
 			},
 			beforeClose() {
 				this.close()
@@ -155,6 +166,8 @@
 					plateFieldGuid: this.fieldObj.plateFieldGuid,
 					catTreeCode: this.type,
 					curUserId: this.$store.state.user.adminId,
+					page: this.page,
+					size: '20',
 				}).then(res => {
 					console.log(res);
 					if (res.Tag.length) {

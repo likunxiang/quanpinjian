@@ -176,7 +176,7 @@
 			// 发布单个
 			async publishDealMode1(cid) {
 				console.log('guid',id);
-				let id = this.publishGuidList[this.publishStep].categoryGuid
+				let id = this.publishGuidList[this.publishStep].category_guid
 				console.log('id',id);
 				let loadingText = '发布中,请不要进行别的操作' + '(' + this.publishStep + '/' + this.publishGuidList.length + ')'
 				this.loadingText = loadingText
@@ -191,7 +191,7 @@
 							this.loading = false
 							this.clearTemporaryValue(cid)
 						} else {
-							this.publishDealMode1()
+							this.publishDealMode1(cid)
 						}
 
 					} else {

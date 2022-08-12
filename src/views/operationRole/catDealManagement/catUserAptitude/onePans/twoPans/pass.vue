@@ -86,6 +86,7 @@
 				this.loading = true
 				await getUserList({
 					categoryGuid: this.row.categoryGuid,
+					phonenumber: this.searchVal,
 					approveFlag: 1,
 					page: this.page,
 					size: '20',
@@ -107,7 +108,7 @@
 			}
 		},
 		created() {
-			this.getApprovedUserList()
+			this.getUserList()
 		}
 	}
 </script>

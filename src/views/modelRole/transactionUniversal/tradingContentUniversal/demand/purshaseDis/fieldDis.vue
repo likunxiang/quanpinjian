@@ -55,24 +55,26 @@
 		</el-dialog>
 
 		<el-dialog title="添加库字段名称" width="700px" :visible.sync="isAdd" destroy-on-close>
-			<el-row>
-				<span class="bold">品类类型：</span>
-				<span class="ml10">{{openRow.categoryName}}</span>
-			</el-row>
-			<el-row class="mt20 flex flex-center">
-				<el-input placeholder="请输入你要找的字段名称" clearable v-model="searchVal" @keyup.enter.native="search"
-					style="width: 200px;margin-right: 20px;" @clear="search">
-					<i class="el-icon-search el-input__icon" slot="suffix" @click="search" />
-				</el-input>
-				<div class="" v-if='isToSearch'>搜索结果：{{searchResult}}</div>
-			</el-row>
-			<el-row class="mt20 pb20">
-				<div class="flex jsb flex-center mb10" v-for="(item,index) in fieldList" :key="index">
-					<div>{{item.fixedDataName}}</div>
-					<el-button v-if="item.check">已添加</el-button>
-					<el-button v-else type="primary" @click="checkPlate(index,item.fixedDataCode)">添加</el-button>
-				</div>
-			</el-row>
+			<div style="max-height: 80vh;overflow-y: auto;">
+				<el-row>
+					<span class="bold">品类类型：</span>
+					<span class="ml10">{{openRow.categoryName}}</span>
+				</el-row>
+				<el-row class="mt20 flex flex-center">
+					<el-input placeholder="请输入你要找的字段名称" clearable v-model="searchVal" @keyup.enter.native="search"
+						style="width: 200px;margin-right: 20px;" @clear="search">
+						<i class="el-icon-search el-input__icon" slot="suffix" @click="search" />
+					</el-input>
+					<div class="" v-if='isToSearch'>搜索结果：{{searchResult}}</div>
+				</el-row>
+				<el-row class="mt20 pb20">
+					<div class="flex jsb flex-center mb10" v-for="(item,index) in fieldList" :key="index">
+						<div>{{item.fixedDataName}}</div>
+						<el-button v-if="item.check">已添加</el-button>
+						<el-button v-else type="primary" @click="checkPlate(index,item.fixedDataCode)">添加</el-button>
+					</div>
+				</el-row>
+			</div>
 		</el-dialog>
 
 		<el-dialog title="新建字段名称" width="700px" :visible.sync="isNewField" destroy-on-close>

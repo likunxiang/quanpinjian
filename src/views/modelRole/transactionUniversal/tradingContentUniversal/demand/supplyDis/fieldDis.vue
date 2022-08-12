@@ -43,7 +43,7 @@
 					<el-row class="mb10" v-for="(item,index) in plate" :key="index">
 						<el-radio :label="item.plateGuid">{{item.plateName}}</el-radio>
 					</el-row>
-		
+
 				</el-radio-group>
 			</el-row>
 			<span slot="footer" class="dialog-footer">
@@ -53,24 +53,26 @@
 		</el-dialog>
 
 		<el-dialog title="添加库字段名称" width="700px" :visible.sync="isAdd" destroy-on-close>
-			<el-row>
-				<span class="bold">品类类型：</span>
-				<span class="ml10">{{openRow.categoryName}}</span>
-			</el-row>
-			<el-row class="mt20 flex flex-center">
-				<el-input placeholder="请输入你要找的字段名称" clearable v-model="searchVal" @keyup.enter.native="search"
-					style="width: 200px;margin-right: 20px;" @clear="search">
-					<i class="el-icon-search el-input__icon" slot="suffix" @click="search" />
-				</el-input>
-				<div class="" v-if='isToSearch'>搜索结果：{{searchResult}}</div>
-			</el-row>
-			<el-row class="mt20 pb20">
-				<div class="flex jsb flex-center mb10" v-for="(item,index) in fieldList" :key="index">
-					<div>{{item.plateFieldName}}</div>
-					<el-button v-if="item.check">已添加</el-button>
-					<el-button v-else type="primary" @click="checkPlate(index,item.fixedDataCode)">添加</el-button>
-				</div>
-			</el-row>
+			<div style="max-height: 80vh;overflow-y: auto;">
+				<el-row>
+					<span class="bold">品类类型：</span>
+					<span class="ml10">{{openRow.categoryName}}</span>
+				</el-row>
+				<el-row class="mt20 flex flex-center">
+					<el-input placeholder="请输入你要找的字段名称" clearable v-model="searchVal" @keyup.enter.native="search"
+						style="width: 200px;margin-right: 20px;" @clear="search">
+						<i class="el-icon-search el-input__icon" slot="suffix" @click="search" />
+					</el-input>
+					<div class="" v-if='isToSearch'>搜索结果：{{searchResult}}</div>
+				</el-row>
+				<el-row class="mt20 pb20">
+					<div class="flex jsb flex-center mb10" v-for="(item,index) in fieldList" :key="index">
+						<div>{{item.plateFieldName}}</div>
+						<el-button v-if="item.check">已添加</el-button>
+						<el-button v-else type="primary" @click="checkPlate(index,item.fixedDataCode)">添加</el-button>
+					</div>
+				</el-row>
+			</div>
 		</el-dialog>
 
 		<editField v-if="isEdit" @close="closeEditFieldName" @refresh="getPlateFields" :editRow="oldRow"></editField>
@@ -83,6 +85,7 @@
 		getPlateFields,
 		getPlateFieldFromDemand,
 		addPlateFieldFromSupply,
+		addPlateFieldFromDemand,
 		existPlateField,
 		getRequireFieldsOfSupply,
 		relateField2Plate,
@@ -334,6 +337,32 @@
 					this.getPlateFields()
 				})
 			},
+			// 匹配上了
+			async addPlateFieldFromDemand(data, index) {
+				await addPlateFieldFromDemand({
+					categoryGuid: this.openRow.categoryGuid,
+					cattypeGuid: this.openRow.categoryGuid,
+					fixedDataCode: data.fixedDataCode,
+					plateFieldName: data.supplyName,
+					catTreeCode: this.openRow.type || this.openRow.catTreeCode,
+					bizType: this.openRow.bizType,
+					curUserId: this.$store.state.user.adminId,
+				}).then(res => {
+					if (res.Tag[0] > 0) {
+						this.$message({
+							type: 'success',
+							message: '添加成功'
+						})
+						this.fieldList[index].check = true
+					} else {
+						this.$message({
+							type: 'error',
+							message: '添加失败'
+						})
+					}
+					this.getPlateFields()
+				})
+			},
 			// 添加时查询是否拥有对应字段名称
 			async getRequireFieldsOfSupply(id, source, index, code) {
 				await getRequireFieldsOfSupply({
@@ -351,7 +380,7 @@
 								confirmButtonText: '添加',
 								callback: action => {
 									for (let i in data) {
-										this.existPlateField(data[i].fixedDataCode, source, index)
+										this.addPlateFieldFromDemand(data[i], index)
 									}
 
 								}

@@ -90,6 +90,7 @@
 					page: this.page,
 					size: '20',
 					curUserId: this.$store.state.user.adminId,
+					phonenumber: this.searchVal,
 				}).then(res => {
 					this.loading = false
 					console.log(res);
@@ -107,7 +108,7 @@
 			}
 		},
 		created() {
-			this.getWaitApproUserList()
+			this.getUserList()
 		}
 	}
 </script>

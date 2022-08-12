@@ -89,7 +89,7 @@
       }
     },
     created() {
-      this.getPublishStatisticList()
+      // this.getPublishStatisticList()
     }
   }
 </script>

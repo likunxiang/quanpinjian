@@ -1,11 +1,11 @@
 <template>
   <div class="app-container">
     <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
-      <el-tab-pane label="沟通类" name="first">
+      <!-- <el-tab-pane label="沟通类" name="first">
         <communicationType v-if="activeName=='first'"></communicationType>
-      </el-tab-pane>
-      <el-tab-pane label="交易类" name="second">
-        <transactionType v-if="activeName=='second'"></transactionType>
+      </el-tab-pane> -->
+      <el-tab-pane label="交易类" name="first">
+        <transactionType v-if="activeName=='first'"></transactionType>
       </el-tab-pane>
     </el-tabs>
   </div>

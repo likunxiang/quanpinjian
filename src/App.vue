@@ -66,6 +66,9 @@ export default  {
   .el-dialog__footer {
     text-align: center;
   }
+	.el-scrollbar__wrap {
+	      overflow-x: hidden !important;
+	  }
   .non-image {
     width: 100px;
     height: 100px;

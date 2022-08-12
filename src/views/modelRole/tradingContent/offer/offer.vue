@@ -115,12 +115,13 @@
 			// 判断是否可以发布
 			async supplypriceIsCanPublish(id, sid) {
 				await supplypriceIsCanPublish({
-					categoryGuid: id
+					categoryGuid: id,
+					curUserId: this.$store.state.user.adminId,
 				}).then(res => {
 					console.log(res);
 					if (res.Tag[0].Table[0].canPublish > 0) {
 						// 可以发布
-						this.supplypricePublish(sid)
+						this.supplypricePublish(id)
 					} else {
 						let msg = res.Tag[0].Table[0].notPublishReason
 						// 不可以发布
@@ -134,7 +135,8 @@
 			// 查询和发布先调用这个接口
 			async existsByCGuid(name, cid, sid, callback) {
 				await existsByCGuid({
-					categoryGuid: cid
+					categoryGuid: cid,
+					curUserId: this.$store.state.user.adminId,
 				}).then(res => {
 					if (res.Tag[0].Table[0].num == 0) {
 						// 当返回为0时，说明该品类已不存在，要删除交易id
@@ -157,7 +159,8 @@
 			},
 			async deleteByGuid(did) {
 				await deleteByGuid({
-					dealModeGuid: did
+					dealModeGuid: did,
+					curUserId: this.$store.state.user.adminId,
 				}).then(res => {
 					this.getSupplyPriceList()
 				})
@@ -165,7 +168,8 @@
 			// 发布
 			async supplypricePublish(id) {
 				await supplypricePublish({
-					supplyPriceGuid: id
+					categoryGuid: id,
+					curUserId: this.$store.state.user.adminId,
 				}).then(res => {
 					let isFirst = res.Tag[0].Table[0].publishNum > 0 ? false : true
 					if (isFirst) {

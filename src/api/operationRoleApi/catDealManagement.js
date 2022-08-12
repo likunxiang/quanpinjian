@@ -60,7 +60,7 @@ export function getWaitApproUserList(data) {
 // web-统计用户申请的资质审批(通过/不通过)数量
 export function getApprovedDetailCount(data) {
   return request({
-    url: '/QueryData?SqlCmdName=aprc\\web\\buyqualification\\approve\\getCountAF1&2_1_0_1&DBC=w_a',
+    url: '/QueryData?SqlCmdName=aprc\\web\\buyqualification\\approve\\getCountAF1And2_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -68,9 +68,7 @@ export function getApprovedDetailCount(data) {
 
 // web-审批用户资质
 export function updateApprove(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
     url: '/ExSql?SqlCmdName=aprc\\web\\buyqualification\\approve\\updateAF_1_0_1&DBC=w_a',
     method: 'post',
     data: data
@@ -79,9 +77,7 @@ export function updateApprove(data) {
 
 // web-查询品类资质用户列表-已审批
 export function getApprovedUserList(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
     url: '/QueryData?SqlCmdName=web\\cat\\buyqualification\\getApprovedUserList&DBC=w_m',
     method: 'post',
     data: data
@@ -91,7 +87,7 @@ export function getApprovedUserList(data) {
 // web-查询用户资质详情
 export function getUserIntelligence(data) {
   return request({
-    url: '/QueryData?SqlCmdName= aprc\\web\\buyqualification\\plates\\getUserQuaDetail_1_0_1,aprc\\web\\buyqualification\\plates\\getPlates_1_0_1,aprc\\web\\buyqualification\\plates\\getPlateFields_1_0_1,aprc\\web\\buyqualification\\plates\\getPlateFieldValues_1_0_1&DBC=w_a',
+    url: '/QueryData?SqlCmdName=aprc\\web\\buyqualification\\plates\\getUserQuaDetail_1_0_1,aprc\\web\\buyqualification\\plates\\getPlates_1_0_1,aprc\\web\\buyqualification\\plates\\getPlateFields_1_0_1,aprc\\web\\buyqualification\\plates\\getPlateFieldValues_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
