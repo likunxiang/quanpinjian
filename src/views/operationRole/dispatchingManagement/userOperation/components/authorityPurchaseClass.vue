@@ -68,7 +68,7 @@
 			        style="width: 200px;margin-right: 20px;">
 			        <i class="el-icon-search el-input__icon" slot="suffix" @click="searchClass" />
 			      </el-input>
-			      <div class="" v-if="isToSearch">搜索结果：{{searchClassResult}}</div>
+			      <div class="" v-if="isToSearch">搜索结果</div>
 			    </el-row>
 			  </div>
 			</el-row>

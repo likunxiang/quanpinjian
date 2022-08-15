@@ -5,7 +5,7 @@
 				style="width: 200px;margin-right: 20px;" @clear="search">
 				<i class="el-icon-search el-input__icon" slot="suffix" @click="search" />
 			</el-input>
-			<div class="" v-if="isToSearch">搜索结果：{{searchResult}}</div>
+			<div class="" v-if="isToSearch">搜索结果</div>
 		</div>
 		<el-row class="mt20" style="padding-bottom: 50px;">
 			<div class="flex jsb flex-center mb10" v-for="(item,index) in tableData" :key="index">

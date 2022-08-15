@@ -38,7 +38,6 @@
   import pages from '@/views/components/common/pages.vue'
   import searchCom from '@/views/components/common/searchCom.vue'
   import {
-    getPublishFlagList,
     getPublishStatisticList
   } from '@/api/operationRoleApi/catDealManagement.js'
   export default {
@@ -72,7 +71,8 @@
         await getPublishStatisticList({
           categoryName: this.searchVal || '',
           page: this.page,
-          size: '20'
+          size: '20',
+		  curUserId: this.$store.state.user.adminId,
         }).then(res => {
 		  this.loading = false
           console.log(res);
@@ -89,7 +89,7 @@
       }
     },
     created() {
-      // this.getPublishStatisticList()
+      this.getPublishStatisticList()
     }
   }
 </script>

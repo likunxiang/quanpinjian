@@ -7,39 +7,50 @@
 			</div>
 		</div>
 		<el-table :data="tableData" border v-loading="loading">
-			<el-table-column prop="nickName" label="机构名称" align="center"></el-table-column>
-			<el-table-column prop="registerTime" label="签约主体" align="center"></el-table-column>
-			<el-table-column prop="nickName" label="创建日期" align="center"></el-table-column>
-			<el-table-column prop="nation" label="合作终止日期" align="center"></el-table-column>
+			<el-table-column prop="orgName" label="机构名称" align="center"></el-table-column>
+			<el-table-column prop="typeStr" label="签约主体" align="center"></el-table-column>
+			<el-table-column prop="createTime" label="创建日期" align="center"></el-table-column>
+			<el-table-column prop="cooperationEndTime" label="合作终止日期" align="center"></el-table-column>
 			<el-table-column label="操作" align="center">
 				<template slot-scope="scope">
-					<el-button type="text" @click="editOrg(scope.row)">编辑机构名称</el-button>
-					<el-button type="text" @click="delOrg(scope.row)">删除机构名称</el-button>
-					<el-button type="text" @click="registerVerify(scope.row)">注册验证号码管理</el-button>
-					<el-button type="text" @click="signLog(scope.row)">签约记录管理</el-button>
-					
+					<el-row>
+						<el-button type="text" @click="editOrg(scope.row)">编辑机构名称</el-button>
+					</el-row>
+					<el-row>
+						<el-button type="text" @click="delOrg(scope.row)">删除机构名称</el-button>
+					</el-row>
+					<el-row>
+						<el-button type="text" @click="toRegisterVerify(scope.row)">注册验证号码管理</el-button>
+					</el-row>
+
+					<!-- <el-button type="text" @click="signLog(scope.row)">签约记录管理</el-button> -->
+
 				</template>
 			</el-table-column>
 		</el-table>
 		<pages @changePage="changePage" :total="pageTotal" :page="page"></pages>
-		<newOrganization v-if="isNew" @close="closeNew" @refresh="orgGetList"></newOrganization>
+		<newOrganization v-if="isNew" @close="closeNew" @refresh="getOrgList" :row="openRow" :pageType="pageType">
+		</newOrganization>
+		<registerVerify v-if="isVerify" @close="closeVerify" @refresh="getOrgList" :row="openRow"></registerVerify>
 	</div>
 </template>
 
 <script>
 	import searchCom from '@/views/components/common/searchCom.vue'
 	import pages from '@/views/components/common/pages'
+	import newOrganization from '@/views/objectAttache/orgNameManager/components/newOrg.vue'
+	import registerVerify from '@/views/objectAttache/orgNameManager/components/registerVerify.vue'
 	import {
-		orgGetList,
-		orgInsertOrgName,
-		orgUpdateOrgName,
-		orgDelOrgName,
-	} from '@/api/choseManagerApi/choseManagerCom.js'
+		getOrgList,
+		deleteOrg
+	} from '@/api/objectAttacheApi/objectAttache.js'
 	export default {
 		name: "index",
 		components: {
 			searchCom,
 			pages,
+			newOrganization,
+			registerVerify
 		},
 		data() {
 			return {
@@ -50,55 +61,94 @@
 				searchResult: 0,
 				searchVal: '',
 				isNew: false,
-				openRow: {}
+				openRow: {},
+				pageType: 'new',
+				isVerify: false
 			};
 		},
 		methods: {
 			search(data) {
 				this.searchVal = data
 				this.page = 1
-				//
+				this.getOrgList()
 			},
 			changePage(page) {
 				this.page = page
-				//
+				this.getOrgList()
 			},
 			openNew() {
 				this.isNew = true
+				this.openRow = {}
+				this.pageType = 'new'
 			},
 			closeNew() {
 				this.isNew = false
 			},
 			editOrg(row) {
+				console.log(row);
 				this.openRow = row
+				this.isNew = true
+				this.pageType = 'edit'
 			},
 			delOrg(row) {
+				let msg = '【' + row.orgName + '】删除后，全网不可见这个机构的有关信息。确认删除？'
+				this.$confirm(msg, '', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
+				}).then(() => {
+
+					this.deleteOrg(row)
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已取消删除'
+					});
+				});
+
+			},
+			toRegisterVerify(row) {
+				this.isVerify = true
 				this.openRow = row
 			},
-			registerVerowrify() {
-				this.openRow = row
+			closeVerify() {
+				this.isVerify = false
 			},
 			signLog(row) {
 				this.openRow = row
 			},
-			async orgGetList() {
+			async deleteOrg(row) {
+				await deleteOrg({
+					orgGuid: row.orgGuid,
+					curUserId: this.$store.state.user.adminId,
+				}).then(res => {
+					if (res.OK == 'True') {
+
+						if (res.Tag[0] > 0) {
+							this.$message({
+								type: 'success',
+								message: '操作成功!'
+							});
+							this.getOrgList()
+						} else {
+							let msg = '【' + row.orgName + '】已注册或者已签约，不能删除'
+							// 不可以发布
+							this.$alert(msg, '', {
+								confirmButtonText: '知道了',
+								callback: action => {}
+							});
+						}
+
+					}
+				})
+			},
+			async getOrgList() {
 				this.loading = true
-			 await orgGetList({
+				await getOrgList({
 					orgName: this.searchVal,
 					size: '20',
 					page: this.page,
 					curUserId: this.$store.state.user.adminId,
-					orgPathContent1: this.guidList[1] ? this.guidList[1] : '',
-					orgPathContent2: this.guidList[2] ? this.guidList[2] : '',
-					orgPathContent3: this.guidList[3] ? this.guidList[3] : '',
-					orgPathContent4: this.guidList[4] ? this.guidList[4] : '',
-					orgPathContent5: this.guidList[5] ? this.guidList[5] : '',
-					orgPathContent6: this.guidList[6] ? this.guidList[6] : '',
-					orgPathContent7: this.guidList[7] ? this.guidList[7] : '',
-					orgPathContent8: this.guidList[8] ? this.guidList[8] : '',
-					orgPathContent9: this.guidList[9] ? this.guidList[9] : '',
-					orgPathContent10: this.guidList[10] ? this.guidList[10] : '',
-					lastOrgPathContentGuid: this.lastOrgPathContentGuid
 				}).then(res => {
 					this.loading = false
 					if (res.OK == 'True') {
@@ -118,7 +168,7 @@
 			},
 		},
 		created() {
-			this.orgGetList()
+			this.getOrgList()
 		}
 	}
 </script>

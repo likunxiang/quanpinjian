@@ -144,10 +144,8 @@ export function getPublishFlagList(data) {
 
 // web-查询交易类支撑跟踪列表
 export function getPublishStatisticList(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\deal\\getPublishStatisticList_1_0_2&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\cat\\sta\\getPublishFlagList_1_0_1&DBC=w_m',
     method: 'post',
     data: data
   })

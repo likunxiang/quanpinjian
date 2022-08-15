@@ -7,7 +7,7 @@
           style="width: 200px;margin-right: 20px;" @clear="search">
           <i class="el-icon-search el-input__icon" slot="suffix" @click="search" />
         </el-input>
-        <div class="" v-if="isToSearch">搜索结果：{{searchResult}}</div>
+        <div class="" v-if="isToSearch">搜索结果</div>
       </el-row>
       <el-row>
         <el-button type="primary" @click="openSort">排序管理<i class="el-icon-arrow-down"></i></el-button>
