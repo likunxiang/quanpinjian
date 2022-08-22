@@ -100,7 +100,7 @@
 				await getRoleUserList({
 					page: this.page,
 					size: '20',
-					roleKey: 'messageRole',
+					roleKey: 'customerServiceRole',
 					phonenumber: this.searchVal,
 					curUserId: this.$store.state.user.adminId,
 				}).then((res) => {

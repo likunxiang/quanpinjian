@@ -54,7 +54,7 @@
 	import {
 		getDealModes,
 		isDealModeCanPublish,
-		publishDealMode,
+		publishDealMode1,
 		existsByCGuid,
 		getDealModePublishHistory,
 		deleteByDealModeGuid
@@ -132,7 +132,7 @@
 					console.log(res);
 					if (res.Tag[0].Table[0].canPublish > 0) {
 						// 可以发布
-						this.publishDealMode(id)
+						this.publishDealMode1(id)
 					} else {
 						let msg = res.Tag[0].Table[0].notPublishReason
 						// 不可以发布
@@ -144,8 +144,8 @@
 				})
 			},
 			//
-			async publishDealMode(id) {
-				await publishDealMode({
+			async publishDealMode1(id) {
+				await publishDealMode1({
 					categoryGuid: id,
 					curUserId: this.$store.state.user.adminId,
 				}).then(res => {

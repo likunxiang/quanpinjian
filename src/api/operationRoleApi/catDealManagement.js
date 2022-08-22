@@ -145,7 +145,7 @@ export function getPublishFlagList(data) {
 // web-查询交易类支撑跟踪列表
 export function getPublishStatisticList(data) {
   return request({
-    url: '/QueryData?SqlCmdName=aprc\\web\\cat\\sta\\getPublishFlagList_1_0_1&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\cat\\sta\\getPublishFlagList_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -153,10 +153,8 @@ export function getPublishStatisticList(data) {
 
 // web-查询品类交易跟踪管理列表-沟通类
 export function getBriefMode1List(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\statistic\\getBriefMode1List&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\cat\\sta\\getChatCountList_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -164,10 +162,8 @@ export function getBriefMode1List(data) {
 
 // web-查询品类交易跟踪管理列表-交易类
 export function getBriefMode2List(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\statistic\\getBriefMode2List&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\cat\\sta\\getDealCountList_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -175,10 +171,8 @@ export function getBriefMode2List(data) {
 
 // web-查询供方数量-沟通类
 export function getMode1Suppliers(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\statistic\\getMode1Suppliers&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\cat\\sta\\getSuppliers_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -186,10 +180,8 @@ export function getMode1Suppliers(data) {
 
 // web-查询供方数量-交易类
 export function getMode2SupplierInfos(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\statistic\\getMode2SupplierInfos&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\cat\\sta\\getSuppliers_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -197,10 +189,8 @@ export function getMode2SupplierInfos(data) {
 
 // web-按年查询订单数量-交易类
 export function getOneCatOrderCountYear(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\statistic\\getOneCatOrderCountYear&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\cat\\sta\\getOneCatOrderCountYear_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -208,10 +198,8 @@ export function getOneCatOrderCountYear(data) {
 
 // web-按月份查询订单数量-交易类
 export function getOneCatOrderCountMonth(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\statistic\\getOneCatOrderCountMonth&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\cat\\sta\\getOneCatOrderCountMonth_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -219,10 +207,8 @@ export function getOneCatOrderCountMonth(data) {
 
 // web-查询订单月份详情-交易类
 export function getOneCatOrderDetailMonth(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\statistic\\getOneCatOrderDetailMonth&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\cat\\sta\\getOneCatOrderDetailMonth_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })

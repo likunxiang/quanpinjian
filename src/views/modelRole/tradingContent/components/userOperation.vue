@@ -18,40 +18,29 @@
 				</p>
 			</el-row>
 
-			<!-- demand -->
-			<el-row v-if="fieldObj.catTreeCode=='demand'">
-				<!-- 需方需方需方 -->
-				<el-row>
+			<el-row v-if="fieldObj.fieldContentSource == 0">
+				<!-- 未设置 -->
+			</el-row>
+
+			<el-row v-if="fieldObj.fieldContentSource > 0">
+				<el-row v-if="fieldObj.catTreeCode=='demand'">
 					<el-row v-if="fieldObj.fieldContentSource == 0">
 						<!-- 未设置 -->
 					</el-row>
-					<el-row v-else-if="fieldObj.fieldContentSource == 1">
+					<!-- 固化/自建 -->
+					<el-row v-if="fieldObj.fieldContentSource == 1 || fieldObj.fieldContentSource == 2">
 						<el-row>
 							<p class="bold">请选择</p>
 						</el-row>
-						<!-- 固化 -->
-
 						<el-radio-group v-model="radioDemander">
 							<el-row class="mb10">
 								<el-radio :label="1">单选</el-radio>
-								<el-radio :label="2">多选</el-radio>
 							</el-row>
 						</el-radio-group>
 					</el-row>
-					<el-row v-else-if="fieldObj.fieldContentSource == 2">
-						<el-row>
-							<p class="bold">请选择</p>
-						</el-row>
-						<!-- 自建 -->
-						<el-radio-group v-model="radioDemander">
-							<el-row>
-								<el-radio :label="item.id" v-for="(item,index) in demanderList" :key="index">
-									{{item.name}}</el-radio>
-							</el-row>
-						</el-radio-group>
-					</el-row>
+
 					<!-- 需方 -->
-					<el-row v-else-if="fieldObj.fieldContentSource == 3 || fieldObj.fieldContentSource == 3 ">
+					<el-row v-else-if="fieldObj.fieldContentSource == 3">
 						<el-row>
 							<p class="bold">请选择</p>
 						</el-row>
@@ -91,104 +80,18 @@
 							</el-row>
 						</div>
 					</el-row>
-
-					<!-- supply -->
-					<el-row v-else>
-						<el-row>
-							<p class="bold">请选择</p>
-						</el-row>
-						<!-- 供方/需方 -->
-						<!-- 自建和固化可选内容不同 -->
-						<el-row v-if="fieldObj.plateFieldSource=='1'">
-							<el-radio-group v-model="radioDemander">
-								<el-row class="mb10">
-									<el-radio :label="3">填写</el-radio>
-								</el-row>
-							</el-radio-group>
-							<el-input type="textarea" placeholder="请输入需方填写时的注意点或者提示语" v-model="inputDemander">
-							</el-input>
-						</el-row>
-						<el-row v-else>
-							<el-radio-group v-model="radioDemander" @change="changeRadioDemander">
-								<el-row class="mb10">
-									<el-radio :label="3">填写</el-radio>
-									<el-radio :label="4">图片上传</el-radio>
-									<el-radio :label="5">文档上传</el-radio>
-								</el-row>
-							</el-radio-group>
-							<el-input type="textarea" placeholder="请输入需要需方填写或者上传时的注意要点" v-model="inputDemander">
-							</el-input>
-							<!-- 是否能上传文档 -->
-							<div v-if="radioDemander>3">
-								<el-row>
-									<p class="bold">是否需要下载待传图片/文件模板</p>
-								</el-row>
-								<el-row>
-									<el-radio-group v-model="radioDown">
-										<el-row class="mb10">
-											<el-radio :label="1">否</el-radio>
-											<el-radio :label="2">是</el-radio>
-										</el-row>
-									</el-radio-group>
-									<div>
-										<el-upload ref="upload" class="upload-demo" action=""
-											:on-preview="handlePreview" :accept="accptSting" :on-remove="handleRemove"
-											:on-change="changeFile" :before-remove="beforeRemove" show-file-list
-											:on-success="uploadSuccess" multiple :http-request="uploadFile" :limit="1"
-											:on-progress="uploading" :on-exceed="handleExceed" :auto-upload="false"
-											:before-upload="beforeUpload" :file-list="fileList">
-											<el-button size="small" type="primary" slot="tip" :disabled="true"
-												v-if="radioDown!=2">点击上传</el-button>
-											<el-button size="small" type="primary" v-else>点击上传</el-button>
-										</el-upload>
-									</div>
-								</el-row>
-							</div>
-						</el-row>
-					</el-row>
-				</el-row>
-			</el-row>
-			<!-- supply -->
-			<el-row v-else>
-				<el-row v-if="fieldObj.fieldContentSource == 0">
-					<!-- 未设置 -->
 				</el-row>
 
-				<el-row v-if="bizType == '1'">
-					<el-row v-if="fieldObj.plateFieldSource == '1'">
-						<el-row v-if="fieldObj.fieldContentSource == 3">
-							<el-radio-group v-model="radioDemander">
-								<el-row class="mb10">
-									<el-radio :label="1">单选</el-radio>
-									<el-radio :label="2">多选</el-radio>
-								</el-row>
-							</el-radio-group>
-						</el-row>
-						<el-row v-else-if="fieldObj.fieldContentSource == 4">
-							<el-radio-group v-model="radioDemander">
-								<el-row class="mb10">
-									<el-radio :label="3">填写</el-radio>
-								</el-row>
-							</el-radio-group>
-							<el-input type="textarea" placeholder="请输入需方填写时的注意点或者提示语" v-model="inputDemander">
-							</el-input>
-						</el-row>
+				<el-row v-if="fieldObj.catTreeCode=='supply'">
+					<el-row v-if="fieldObj.fieldContentSource == 1 || fieldObj.fieldContentSource == 2 ">
+						<el-radio-group v-model="radioDemander">
+							<el-row class="mb10">
+								<el-radio :label="1">单选</el-radio>
+								<!-- <el-radio :label="2">多选</el-radio> -->
+							</el-row>
+						</el-radio-group>
 					</el-row>
-
-					<el-row v-if="fieldObj.plateFieldSource == '2'">
-						<el-row v-if="fieldObj.fieldContentSource == 3">
-							<el-radio-group v-model="radioDemander">
-								<el-row class="mb10">
-									<el-radio :label="1">单选</el-radio>
-									<el-radio :label="2">多选</el-radio>
-								</el-row>
-							</el-radio-group>
-						</el-row>
-					</el-row>
-
-				</el-row>
-				<el-row v-if="bizType == '2'">
-					<el-row v-if="fieldObj.fieldContentSource == 1 || fieldObj.fieldContentSource == 2">
+					<el-row v-if="fieldObj.fieldContentSource == 3">
 						<el-radio-group v-model="radioDemander">
 							<el-row class="mb10">
 								<el-radio :label="1">单选</el-radio>
@@ -196,7 +99,10 @@
 							</el-row>
 						</el-radio-group>
 					</el-row>
-					<el-row v-else-if="fieldObj.fieldContentSource == 4">
+					<el-row v-else-if="fieldObj.fieldContentSource == 4 ">
+						<el-row>
+							<p class="bold">请选择</p>
+						</el-row>
 						<el-radio-group v-model="radioDemander" @change="changeRadioDemander">
 							<el-row class="mb10">
 								<el-radio :label="3">填写</el-radio>
@@ -220,9 +126,9 @@
 								</el-radio-group>
 								<div>
 									<el-upload ref="upload" class="upload-demo" action="" :on-preview="handlePreview"
-										:on-success="uploadSuccess" :on-remove="handleRemove" :on-change="changeFile"
-										:before-remove="beforeRemove" show-file-list multiple :http-request="uploadFile"
-										:limit="1" :on-progress="uploading" :accept="accptSting"
+										:accept="accptSting" :on-remove="handleRemove" :on-change="changeFile"
+										:before-remove="beforeRemove" show-file-list :on-success="uploadSuccess"
+										multiple :http-request="uploadFile" :limit="1" :on-progress="uploading"
 										:on-exceed="handleExceed" :auto-upload="false" :before-upload="beforeUpload"
 										:file-list="fileList">
 										<el-button size="small" type="primary" slot="tip" :disabled="true"
@@ -234,22 +140,13 @@
 						</div>
 					</el-row>
 				</el-row>
-
-
-
-				<el-row v-if="bizType == '3'">
-					<el-row v-if="fieldObj.fieldContentSource == 3">
-						<el-radio-group v-model="radioDemander">
-							<el-row class="mb10">
-								<el-radio :label="1">单选</el-radio>
-								<el-radio :label="2">多选</el-radio>
-							</el-row>
-						</el-radio-group>
-					</el-row>
-				</el-row>
-
-
 			</el-row>
+
+
+
+
+
+
 		</div>
 
 		<span slot="footer" class="dialog-footer">
@@ -316,9 +213,6 @@
 				demanderList: [{
 					id: 1,
 					name: '单选'
-				}, {
-					id: 2,
-					name: '多选'
 				}, ],
 				fileList: [], // 上传文件列表
 				loading: false, // 上传文件提示

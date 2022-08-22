@@ -5,12 +5,12 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="角色类型" prop="type">
-              型号专员
+              定价专员
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="归属部门" prop="deptId">
-              型号部门
+              定价部门
             </el-form-item>
           </el-col>
         </el-row>
@@ -106,7 +106,7 @@
 				}],
         ruleForm: {
           nickName: '',
-          deptId: 'bf69be16-f472-11ec-bace-0242ac120003',
+          deptId: 'ea2fd6ce-040e-11ed-b3e9-00163e2ca549',
           password: '',
           name: '',
           userTel: '',
@@ -150,7 +150,7 @@
         passwordStr: '', // 密文
         oldForm: {
           nickName: '',
-          deptId: 'bf69be16-f472-11ec-bace-0242ac120003',
+          deptId: 'ea2fd6ce-040e-11ed-b3e9-00163e2ca549',
           password: '',
           name: '',
           userTel: '',
@@ -257,7 +257,7 @@
           nickName: this.ruleForm.name,
           phonenumber: this.ruleForm.userTel,
           status: this.ruleForm.status,
-          roleKey: 'modelRole',
+          roleKey: 'pricingRole',
           curUserId: this.$store.state.user.adminId,
           deptId: this.ruleForm.deptId,
         }).then(res => {
@@ -327,7 +327,7 @@
           this.ruleForm.password = data.password
           this.ruleForm.userTel = data.phonenumber
           this.ruleForm.status = data.status
-          this.ruleForm.roleKey = 'modelRole',
+          this.ruleForm.roleKey = 'pricingRole',
           this.ruleForm.deptId = data.deptId
           // this.oldForm = this.ruleForm
           this.oldForm.nickName = data.userName
@@ -335,7 +335,7 @@
           this.oldForm.password = data.password
           this.oldForm.userTel = data.phonenumber
           this.oldForm.status = data.status
-          this.oldForm.roleKey = 'modelRole',
+          this.oldForm.roleKey = 'pricingRole',
           this.oldForm.deptId = data.deptId
         })
       }

@@ -16,7 +16,7 @@
           </template>
         </el-table-column>
       </el-table>
-      <pages :total="pageTotal" @changePage="changePage" :page="page"></pages>
+      <!-- <pages :total="pageTotal" @changePage="changePage" :page="page"></pages> -->
     </div>
     <monthDetailPop v-if="isMonth" @close="closeMonthDetail" :row="openRow" :year="row.orderYear"></monthDetailPop>
   </el-dialog>
@@ -83,7 +83,8 @@
           categoryGuid: this.row.categoryGuid,
           year: this.row.orderYear,
           page: this.page,
-          size: '20'
+          size: '20',
+					curUserId: this.$store.state.user.adminId,
         }).then(res => {
 		  this.loading = false
           console.log(res);

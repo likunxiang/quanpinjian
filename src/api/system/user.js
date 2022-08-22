@@ -13,7 +13,7 @@ export function listUser(query) {
 // 查询用户详细
 export function getUser(userId) {
   return request({
-    url: '/system/user/' + parseStrEmpty(userId),
+    url: '/ProxyService/aprc_web_system_user_getOne/' + parseStrEmpty(userId),
     method: 'get'
   })
 }

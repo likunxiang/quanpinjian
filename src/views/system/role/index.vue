@@ -290,7 +290,7 @@
 			getList() {
 				this.loading = true;
 				listRole(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
-					this.roleList = response.rows;
+					this.roleList = response.Tag;
 					this.total = response.total;
 					this.loading = false;
 				});

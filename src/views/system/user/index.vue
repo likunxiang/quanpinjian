@@ -437,7 +437,7 @@
 			getList() {
 				this.loading = true;
 				listUser(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
-					this.userList = response.rows;
+					this.userList = response.Tag;
 					this.total = response.total;
 					this.loading = false;
 				});
@@ -446,6 +446,7 @@
 			getTreeselect() {
 				treeselect().then(response => {
 					this.deptOptions = response.Tag;
+					console.log('deptOptions',this.deptOptions);
 				});
 			},
 			// 筛选节点
