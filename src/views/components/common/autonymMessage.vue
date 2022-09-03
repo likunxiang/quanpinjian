@@ -52,7 +52,7 @@
         </div>
       </el-row>
     </el-row>
-    <el-row class="mb20">
+    <!-- <el-row class="mb20">
       <div class="title-bg mb10">其他信息</div>
       <el-row class="mb10 flex flex-center">
         <div class="bold my-label label-width">角色类型</div>
@@ -66,7 +66,7 @@
         <div class="bold my-label label-width">是否有引导专员</div>
         <div class="my-label">{{userInfo.guidedNum}}</div>
       </el-row>
-    </el-row>
+    </el-row> -->
     <!-- <span slot="footer" class="dialog-footer">
       <el-button @click="delAutonym">删除认证信息</el-button>
     </span> -->
@@ -155,7 +155,10 @@
       },
       // 获取用户个人信息
       async getUserInfoOne() {
-        await getUserInfoOne(this.row.userId).then((res) =>{
+        await getUserInfoOne({
+			userId: this.row.userId || this.userId,
+			curUserId: this.$store.state.user.adminId,
+		}).then((res) =>{
           if (res.Tag.length) {
             let data = res.Tag[0].Table[0]
             this.userInfo.username = data.username

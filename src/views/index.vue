@@ -1,7 +1,7 @@
 <template>
   <div class="app-container home1">
     <div class="home1Text">欢迎使用全品荐管理系统</div>
-    <div class="version">v2.2.1{{huanjing}}</div>
+    <div class="version">v2.2.4{{huanjing}}</div>
   </div>
 </template>
 

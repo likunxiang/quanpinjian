@@ -3,10 +3,8 @@ import axios from 'axios'
 
 // 查询验收期限品类未设置列表
 export function getNoDeadlineList(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\getNoDeadlineList&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\model\\deadline\\getUnDoneCatgList_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -14,10 +12,8 @@ export function getNoDeadlineList(data) {
 
 // web-查询类型验收期限列表-未设置_1_0_1
 export function getUnDoneCattypeDeadlineList_1_0_1(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\model\\getUnDoneCattypeDeadlineList_1_0_1&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\model\\deadline\\getUnDoneCattList_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -25,10 +21,17 @@ export function getUnDoneCattypeDeadlineList_1_0_1(data) {
 
 // 设置品类验收期限
 export function insertDeadline(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/ExSql?SqlCmdName=web\\cat\\insertDeadline&DBC=w_m',
+    url: '/ExSql?SqlCmdName=aprc\\web\\model\\deadline\\insertOfCatt_1_0_1&DBC=w_a',
+    method: 'post',
+    data: data
+  })
+}
+
+// web-品类名称设置验收期限(一个个设置)
+export function insertOfCatg(data) {
+  return request({
+    url: '/ExSql?SqlCmdName=aprc\\web\\model\\deadline\\insertOfCatg_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -36,10 +39,8 @@ export function insertDeadline(data) {
 
 // 查询验收期限品类已设置列表
 export function getDeadlineList(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\getDeadlineList&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\model\\deadline\\getDoneCatgList_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -47,10 +48,8 @@ export function getDeadlineList(data) {
 
 // web-查询类型验收期限列表-已设置_1_0_1
 export function getCattyeDoneDeadlineList_1_0_1(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\model\\getCattyeDoneDeadlineList_1_0_1&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\model\\deadline\\getDoneCattList_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -58,10 +57,8 @@ export function getCattyeDoneDeadlineList_1_0_1(data) {
 
 // 查询变更记录
 export function getDeadlineHistory(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\cat\\getDeadlineHistory&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\model\\deadline\\getHistory_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })

@@ -20,13 +20,22 @@ export function getUserCertification(data) {
   })
 }
 
+// // 获取用户个人信息
+// export function getUserInfoOne(id) {
+//   axios.defaults.baseURL = '/api'
+//   return request({
+//     xf_url: '/api',
+//     url: '/QueryData?SqlCmdName=com\\user\\getOne&DBC=w_m&userId=' + id,
+//     method: 'get',
+//   })
+// }
+
 // 获取用户个人信息
-export function getUserInfoOne(id) {
-  axios.defaults.baseURL = '/api'
+export function getUserInfoOne(data) {
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=com\\user\\getOne&DBC=w_m&userId=' + id,
-    method: 'get',
+    url: '/QueryData?SqlCmdName=aprc\\web\\getAppUserInfo_1_0_1&DBC=w_a',
+	method: 'post',
+    data: data
   })
 }
 

@@ -198,7 +198,8 @@
         await NonSysMakeJudge({
           judgeGuid: this.row.judgeGuid,
           reason: this.fingdingReason,
-          thirdReports: this.uploadUrl  // TODO
+          thirdReports: this.uploadUrl,  // TODO
+		  curUserId: this.$store.state.user.adminId,
         }).then(res => {
           console.log(res);
           if (res.Tag[0] > 0) {

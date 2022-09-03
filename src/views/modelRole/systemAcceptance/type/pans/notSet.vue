@@ -66,7 +66,9 @@
 			// 获取数据
 			async getNoDeadlineList() {
 				this.loading = true
-				await getUnDoneCattypeDeadlineList_1_0_1().then(res => {
+				await getUnDoneCattypeDeadlineList_1_0_1({
+					curUserId: this.$store.state.user.adminId,
+				}).then(res => {
 					this.loading = false
 					console.log(res);
 					if (res.Tag.length) {

@@ -16,7 +16,7 @@
       </div>
       <div class="flex jsb">
         <div>采购编号：{{row.orderNo}}</div>
-        <div>日期：{{row.orderTime}}</div>
+        <div>日期：{{row.applyDate}}</div>
       </div>
       <div class="title-bg mb10 mt10">结果内容</div>
       <div class="mb20">
@@ -247,7 +247,8 @@
           disobeyFeeRemark: this.disobeyFeeRemark,
           obeyFeeRemark: this.obeyFeeRemark,
           feeNo1: this.feeNo1,
-          feeNo2: this.feeNo2
+          feeNo2: this.feeNo2,
+		  curUserId: this.$store.state.user.adminId,
         }).then(res => {
           console.log(res);
           if (res.Tag[0] > 0) {
@@ -272,14 +273,14 @@
       // 获取仲裁账单类型
       async GetfeeNo1() {
         await GetfeeNo().then(res => {
-          this.feeNo1 = res
+          this.feeNo1 = res.Tag[0].Table[0].feeNo
           this.GetfeeNo2()
         })
       },
       // 获取仲裁账单类型
       async GetfeeNo2() {
         await GetfeeNo().then(res => {
-          this.feeNo2 = res
+          this.feeNo2 = res.Tag[0].Table[0].feeNo
         })
       },
 
@@ -300,7 +301,7 @@
         const response = await uploadImgToBase64(item.file)
         const base64File = response.result.replace(/.*;base64,/, '')
         let FileName = item.file.name
-        let FilePath = 'judge\\images'
+        let FilePath = 'aprc\\judge\\images'
         let data = base64File
         upLoadImgApi(data, FileName, FilePath).then(res => {
           if (res.OK == 'True') {

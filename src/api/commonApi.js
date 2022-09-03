@@ -3,10 +3,8 @@ import axios from 'axios'
 
 // web-查看裁决结果信息
 export function getJudgeResult(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/QueryData?SqlCmdName=web\\order\\settle\\demandDisobey\\getJudgeResult&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\order\\settle\\demandDisobey\\getJudgeResult_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -25,10 +23,8 @@ export function upLoadImgApi(data,FileName,FilePath) {
 
 // 获取仲裁账单编号
 export function GetfeeNo(data) {
-  axios.defaults.baseURL = '/api'
   return request({
-    xf_url: '/api',
-    url: '/html?SqlCmdName=web\\GetfeeNo&DBC=w_m',
+    url: '/QueryData?SqlCmdName=aprc\\web\\base\\getFeeNo_1_0_1&DBC=w_a',
     method: 'post',
     data: data
   })
@@ -156,3 +152,13 @@ export function getDetailByIdAndRK(data) {
     data: data
   })
 }
+
+// web-获取机构用户个人信息
+export function getUserInfoByOrg(data) {
+	return request({
+		url: '/QueryData?SqlCmdName=aprc\\webSuOrg\\user\\getOne_1_0_1&DBC=w_a',
+		method: 'post',
+		data: data
+	})
+}
+

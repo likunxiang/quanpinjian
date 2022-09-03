@@ -2,7 +2,7 @@
   <el-dialog title="变更记录" :visible.sync="isOpen" width="500px" @close="beforeClose">
     <div class="flex mb10 flex-center">
       <div class="my-label bold">品类名称</div>
-      <div>{{row.category_name}}</div>
+      <div>{{row.categoryName}}</div>
     </div>
     <div class="flex mb10 flex-center">
       <div class="my-label bold">品类类型</div>
@@ -47,7 +47,8 @@
       // 查看变更记录
       async getDeadlineHistory() {
         await getDeadlineHistory({
-          category_guid: this.row.category_guid
+          categoryGuid: this.row.categoryGuid,
+		  curUserId: this.$store.state.user.adminId,
         }).then(res => {
           console.log(res);
           if(res.Tag) {

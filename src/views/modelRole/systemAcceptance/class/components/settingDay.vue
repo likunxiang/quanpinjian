@@ -3,7 +3,7 @@
     <el-row>
       <div class="flex mb20 flex-center">
         <div class="my-label bold">品类名称</div>
-        <div>{{row.category_name}}</div>
+        <div>{{row.categoryName}}</div>
       </div>
 			<div class="flex mb20 flex-center">
 			  <div class="my-label bold">品类类型</div>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-  import { insertDeadline } from "@/api/modelRoleApi/systemAcceptance.js"
+  import { insertOfCatg } from "@/api/modelRoleApi/systemAcceptance.js"
   export default {
     name: "index",
     props: {
@@ -54,12 +54,12 @@
         this.close()
       },
       submit() {
-        this.$confirm('【'+this.row.category_name+'】\n期限为'+this.appointDay+'小时，请确认保存', '提示', {
+        this.$confirm('【'+this.row.categoryName+'】\n期限为'+this.appointDay+'小时，请确认保存', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.insertDeadline()
+          this.insertOfCatg()
         }).catch(() => {
           this.$message({
             type: 'info',
@@ -69,10 +69,11 @@
 
       },
       // 提交
-      async insertDeadline() {
-        await insertDeadline({
-          category_guid: this.row.category_guid,
-          day: this.appointDay
+      async insertOfCatg() {
+        await insertOfCatg({
+          categoryGuid: this.row.categoryGuid,
+          day: this.appointDay,
+		  curUserId: this.$store.state.user.adminId,
         }).then(res => {
           console.log(res);
           if(res.Tag[0] > 0) {

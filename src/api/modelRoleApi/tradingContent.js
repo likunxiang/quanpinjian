@@ -549,7 +549,7 @@ export function getRuleType(data) {
 // web-发布指派规则
 export function updatePublishFlag(data) {
   return request({
-    url: '/QueryData?SqlCmdName=aprc\\web\\model\\supplyassign\\updPublishFlag_1_0_1&DBC=w_a',
+    url: '/QueryData?SqlCmdName=aprc\\web\\model\\supplyassign\\updPublishFlag_1_0_2&DBC=w_a',
     method: 'post',
     data: data
   })

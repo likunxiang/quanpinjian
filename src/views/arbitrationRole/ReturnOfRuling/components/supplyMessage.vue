@@ -84,7 +84,8 @@
       async getSupplydMessage() {
         this.loding = true
         await getSupplydMessage({
-          orderGuid: this.orderGuid
+          orderGuid: this.orderGuid,
+		  curUserId: this.$store.state.user.adminId,
         }).then(res => {
           this.loading = false
           console.log(res);

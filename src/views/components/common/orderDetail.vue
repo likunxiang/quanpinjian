@@ -208,7 +208,8 @@
       // 获取订单内容
       async getDemandDetail() {
         await getDemandDetail({
-          orderGuid: this.openRow.orderGuid
+          orderGuid: this.openRow.orderGuid,
+		  curUserId: this.$store.state.user.adminId,
         }).then(res => {
           let data = res.Tag[0].Table[0]
           this.orderDetailObj = data
@@ -217,7 +218,8 @@
       // 获取订单内容
       async getSupplyDetail() {
         await getSupplyDetail({
-          orderGuid: this.openRow.orderGuid
+          orderGuid: this.openRow.orderGuid,
+		  curUserId: this.$store.state.user.adminId,
         }).then(res => {
           let data = res.Tag[0].Table[0]
           this.orderDetailObj = data
@@ -226,7 +228,8 @@
       // 查看采购详情
       async getOrderFeeDemandDetail() {
         await getOrderFeeDemandDetail({
-          orderGuid: this.openRow.orderGuid
+          orderGuid: this.openRow.orderGuid,
+		  curUserId: this.$store.state.user.adminId,
         }).then(res => {
           let data = res.Tag[0].Table[0]
           this.orderTypeDetail = data
@@ -239,7 +242,8 @@
       // 查看供应详情
       async getOrderFeeSupplyDetail() {
         await getOrderFeeSupplyDetail({
-          orderGuid: this.openRow.orderGuid
+          orderGuid: this.openRow.orderGuid,
+		  curUserId: this.$store.state.user.adminId,
         }).then(res => {
           let data = res.Tag[0].Table[0]
           this.orderTypeDetail = data
@@ -252,7 +256,8 @@
       // 需求信息
       async getDemandMessage() {
         await getDemandMessage({
-          orderGuid: this.openRow.orderGuid
+          orderGuid: this.openRow.orderGuid,
+		  curUserId: this.$store.state.user.adminId,
         }).then(res => {
 
         })
@@ -260,7 +265,8 @@
       // 供应信息
       async getSupplydMessage() {
         await getSupplydMessage({
-          orderGuid: this.openRow.orderGuid
+          orderGuid: this.openRow.orderGuid,
+		  curUserId: this.$store.state.user.adminId,
         }).then(res => {
 
         })
